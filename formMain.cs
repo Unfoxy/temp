@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace desktopDashboard___Y_Lee.Forms
 {
@@ -83,6 +84,7 @@ namespace desktopDashboard___Y_Lee.Forms
             Form currentForm = Form.ActiveForm;
             currentForm.Controls.Clear();
             InitializeComponent();
+            hideSubMenu();
             string passwordExpiredFilter = lbDashboardPasswordExpired.Text;
             string mvwPasswordExpired = lbDashboardPasswordExpiredMVW.Text;
             lbDashboardPasswordExpiredMVWNumber.Text = Functions.userCount(mvwPasswordExpired, passwordExpiredFilter).ToString();
@@ -171,12 +173,12 @@ namespace desktopDashboard___Y_Lee.Forms
 
         private void btnResetpassword_Click(object sender, EventArgs e)
         {
-            var myForm = new resetPassword();
-            myForm.TopLevel = false;
-            myForm.AutoScroll = true;
-            this.pnMain.Controls.Add(myForm);
-            myForm.BringToFront();
-            myForm.Show();
+            //var myForm = new resetPassword();
+            //myForm.TopLevel = false;
+            //myForm.AutoScroll = true;
+            //this.pnMain.Controls.Add(myForm);
+            //myForm.BringToFront();
+            //myForm.Show();
         }
 
         private void btnCreateUser_Click(object sender, EventArgs e)
@@ -191,22 +193,22 @@ namespace desktopDashboard___Y_Lee.Forms
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            var myForm = new deleteUser();
-            myForm.TopLevel = false;
-            myForm.AutoScroll = true;
-            this.pnMain.Controls.Add(myForm);
-            myForm.BringToFront();
-            myForm.Show();
+            //var myForm = new deleteUser();
+            //myForm.TopLevel = false;
+            //myForm.AutoScroll = true;
+            //this.pnMain.Controls.Add(myForm);
+            //myForm.BringToFront();
+            //myForm.Show();
         }
 
         private void btnLoopupHostname_Click(object sender, EventArgs e)
         {
-            var myForm = new lookupHostname();
-            myForm.TopLevel = false;
-            myForm.AutoScroll = true;
-            this.pnMain.Controls.Add(myForm);
-            myForm.BringToFront();
-            myForm.Show();
+            //var myForm = new lookupHostname();
+            //myForm.TopLevel = false;
+            //myForm.AutoScroll = true;
+            //this.pnMain.Controls.Add(myForm);
+            //myForm.BringToFront();
+            //myForm.Show();
         }
 
         private void btnPingPc_Click(object sender, EventArgs e)
@@ -271,6 +273,24 @@ namespace desktopDashboard___Y_Lee.Forms
             this.pnMain.Controls.Add(myForm);
             myForm.BringToFront();
             myForm.Show();
+        }
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HTCAPTION = 0x2;
+        [DllImport("User32.dll")]
+        public static extern bool ReleaseCapture();
+        [DllImport("User32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+            }
+        }
+        private void pbMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }
