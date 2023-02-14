@@ -1,28 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
-using System.Runtime;
-using System.Security.Policy;
 using System.IO;
-using Microsoft.VisualBasic.FileIO;
-using System.Windows;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Diagnostics;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.ServiceProcess;
-using System.Threading;
 using System.Management;
-using System.Runtime.Remoting.Services;
 using Microsoft.Win32;
-using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace desktopDashboard___Y_Lee
 {
@@ -80,7 +65,7 @@ namespace desktopDashboard___Y_Lee
             ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"; //Default All Sites
             ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
             DirectorySearcher search = new DirectorySearcher(ldapConnection);
-            var time = DateTime.Now.AddDays(-180).ToFileTime();
+            var expiredTime = DateTime.Now.AddDays(-180).ToFileTime();                //Account expiration date 180days
 
             if (site.ToUpper() == "BMC")
             {
@@ -102,18 +87,21 @@ namespace desktopDashboard___Y_Lee
             {
                 ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
             }
+
             if (filter == "Account Deactivated Users")
             {
                 search.Filter = "(&"
                                     + "(userAccountControl=" + "514" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"   //AT12 filters few contractors
                                     + ")";
             }
             else if (filter == "Password Expired Users")
             {
                 search.Filter = "(&"
-                                    + "(pwdLastSet<=" + time + ")"
+                                    + "(pwdLastSet<=" + expiredTime + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + ")";
             }
@@ -122,13 +110,15 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(lockoutTime>=" + "1" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + ")";
             }
             else if (filter == "Account Expired Users")
             {
                 search.Filter = "(&"
-                                   + "(accountExpires<=" + time + ")"
+                                   + "(accountExpires<=" + expiredTime + ")"
                                    + "(userAccountControl=" + "512" + ")"
+                                   //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                    + "(extensionAttribute2=" + "OP USA" + ")"
                                    + "(!" + "(accountExpires=" + "0" + ")"
                                    + ")"
@@ -144,20 +134,19 @@ namespace desktopDashboard___Y_Lee
 
                 SearchResultCollection result = search.FindAll();
 
-                string[] user = new string[1000];
-                string[] ntid = new string[1000];
+                string[] name = new string[1000];       //Max number for the output
+                string[] ntid = new string[1000];       //Max number for the output
                 int count = 0;
-
                 foreach (SearchResult userResults in result)
                 {
-                    user[count] = userResults.Properties["cn"][0].ToString();
+                    name[count] = userResults.Properties["cn"][0].ToString();
                     ntid[count] = userResults.Properties["sAMAccountName"][0].ToString();
                     count++;
                 }
 
-                return Tuple.Create(user, ntid, count);
+                return Tuple.Create(name, ntid, count);
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -168,7 +157,7 @@ namespace desktopDashboard___Y_Lee
             ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"; //Default All Sites
             ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
             DirectorySearcher search = new DirectorySearcher(ldapConnection);
-            var time = DateTime.Now.AddDays(-180).ToFileTime();
+            var expiredTime = DateTime.Now.AddDays(-180).ToFileTime();                //Account expiration date
 
             if (site.ToUpper() == "BMC:")
             {
@@ -196,13 +185,15 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(userAccountControl=" + "514" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"   //AT12 filters few contractors
                                     + ")";
             }
             else if (filter == "Password Expired Users")
             {
                 search.Filter = "(&"
-                                    + "(pwdLastSet<=" + time + ")"
+                                    + "(pwdLastSet<=" + expiredTime + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + ")";
             }
@@ -211,14 +202,16 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(lockoutTime>=" + "1" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + ")";
             }
             else if (filter == "Account Expired Users")
             {
                 search.Filter = "(&"
-                                    + "(accountExpires<=" + time + ")"
+                                    + "(accountExpires<=" + expiredTime + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
+                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(!" + "(accountExpires=" + "0" + ")"
                                     + ")"
                                     + ")";
@@ -226,42 +219,26 @@ namespace desktopDashboard___Y_Lee
 
             try
             {
-                
                 SearchResultCollection result = search.FindAll();
-                int totalCount = result.Count;
-                return totalCount;
+                return result.Count;
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
         }
-        public static void resetPassword(string userName)
+        public static void editRegistry(string hostname)
         {
-            PrincipalContext context = new PrincipalContext(ContextType.Domain);
-            UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
-            //Enable Account if it is disabled
-            user.Enabled = true;
-            //Reset User Password
-            user.SetPassword("Ineos2023");
-            //Force user to change password at next logon
-            user.ExpirePasswordNow();
-            user.Save();
-        }
-        public static void editRegistry(string hostName)
-        {
-            var inputRegistry = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, hostName);
-            inputRegistry = inputRegistry.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001", true);
+            var inputRegistry = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, hostname);
+            inputRegistry = inputRegistry.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001", true); //IPChecksumOffloadIPv4 location
             inputRegistry.SetValue("*IPChecksumOffloadIPv4", "0");
         }
-
-        public static void startupManual(string hostName)
+        public static void startupManual(string hostname)
         {
             ManagementBaseObject inParam;
             ManagementBaseObject outParam;
-            //int result;
             var serviceController = new ServiceController();
-            ManagementObject obj = new ManagementObject(@"\\" + hostName + "\\root\\cimv2:Win32_Service.Name='RemoteRegistry'");
+            ManagementObject obj = new ManagementObject(@"\\" + hostname + "\\root\\cimv2:Win32_Service.Name='RemoteRegistry'");
             try
             {
                 if (obj["StartMode"].ToString() == "Disabled")
@@ -269,11 +246,6 @@ namespace desktopDashboard___Y_Lee
                     inParam = obj.GetMethodParameters("ChangeStartMode");
                     inParam["StartMode"] = "Manual";
                     outParam = obj.InvokeMethod("ChangeStartMode", inParam, null);
-                    //result = Convert.ToInt32(outParam["returnValue"]);
-                    //if (result != 0)
-                    //{
-                    //    throw new Exception("ChangeStartMode method error " + result);
-                    //}
                 }
             }
             catch
@@ -281,13 +253,12 @@ namespace desktopDashboard___Y_Lee
                 throw;
             }
         }
-        public static void startupDisabled(string hostName)
+        public static void startupDisabled(string hostname)
         {
             ManagementBaseObject inParam;
             ManagementBaseObject outParam;
-            //int result;
             var serviceController = new ServiceController();
-            ManagementObject obj = new ManagementObject(@"\\" + hostName + "\\root\\cimv2:Win32_Service.Name='RemoteRegistry'");
+            ManagementObject obj = new ManagementObject(@"\\" + hostname + "\\root\\cimv2:Win32_Service.Name='RemoteRegistry'");
             try
             {
                 if (obj["StartMode"].ToString() == "Manual")
@@ -295,12 +266,6 @@ namespace desktopDashboard___Y_Lee
                     inParam = obj.GetMethodParameters("ChangeStartMode");
                     inParam["StartMode"] = "Disabled";
                     outParam = obj.InvokeMethod("ChangeStartMode", inParam, null);
-                    //result = Convert.ToInt32(outParam["returnValue"]);
-
-                    //if (result != 0)
-                    //{
-                    //    throw new Exception("ChangeStartMode method error " + result);
-                    //}
                 }
             }
             catch
@@ -308,18 +273,18 @@ namespace desktopDashboard___Y_Lee
                 throw;
             }
         }
-        public static void startStopService(string inputHostName)
+        public static void startStopService(string hostname)
         {
             try
             {
                 string serviceName = "RemoteRegistry";
 
-                ServiceController serviceController = new ServiceController("Remote Registry", inputHostName);
+                ServiceController serviceController = new ServiceController("Remote Registry", hostname);
                 ConnectionOptions connectoptions = new ConnectionOptions();
-                ManagementScope scope = new ManagementScope("\\\\" + inputHostName + "\\root\\CIMV2");
+                ManagementScope scope = new ManagementScope("\\\\" + hostname + "\\root\\CIMV2");
                 scope.Options = connectoptions;
-                //WMI query to be executed on the remote machine  
-                SelectQuery query = new SelectQuery("select * from Win32_Service where name = '" + serviceName + "'");
+                
+                SelectQuery query = new SelectQuery("select * from Win32_Service where name = '" + serviceName + "'");          //WMI query to be executed on the remote machine  
                 using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query))
                 {
                     ManagementObjectCollection collection = searcher.Get();
@@ -327,35 +292,53 @@ namespace desktopDashboard___Y_Lee
                     {
                         if (service["started"].Equals(true))
                         {
-                            //Start the service  
                             service.InvokeMethod("StopService", null);
                             serviceController.WaitForStatus(ServiceControllerStatus.Stopped);
                         }
                         else
                         {
-                            //Stop the service  
                             service.InvokeMethod("StartService", null);
                             serviceController.WaitForStatus(ServiceControllerStatus.Running);
                         }
                     }
                 }
             }
-            catch (NullReferenceException)
+            catch
             {
                 throw;
             }
         }
-        public static string[] GetAD(string inputUsername)
+        public static void resetPassword(string username)
+        {
+            PrincipalContext context = new PrincipalContext(ContextType.Domain);
+            UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+            //user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
+            user.SetPassword("Ineos2023");
+            user.ExpirePasswordNow();         //Force user to change password at next logon
+            user.Save();
+        }
+        public static string[] GetAD(string username)
         {
             try
             {
                 DirectoryEntry ldapConnection = new DirectoryEntry("");
-                ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+                ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";           //For all Ineos sites
                 ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
                 DirectorySearcher search = new DirectorySearcher(ldapConnection);
 
-                search.Filter = "(samaccountname=" + inputUsername + ")";
-                string[] requiredProperties = new string[] { "cn", "mail" };
+                search.Filter = "(|"                                                                //Multiple search options
+                                   + "(sAMAccountName=" + username + ")"
+                                   + "(mail=" + username + ")"
+                                   + "(mail=" + username + "@ineos.com" + ")"
+                                   + "(cn=" + username + ")"
+                                   + ")";
+
+                string[] requiredProperties = new string[] { "cn",
+                                                           "mail",
+                                                 "sAMAccountName",
+                                     "physicalDeliveryOfficeName",
+                                                "telephoneNumber", 
+                                                          "title" };
 
                 foreach (String property in requiredProperties)
                     search.PropertiesToLoad.Add(property);
@@ -364,7 +347,7 @@ namespace desktopDashboard___Y_Lee
 
                 if (result != null)
                 {
-                    string[] results = new string[2] { "", "" };
+                    string[] results = new string[6] { "", "", "", "", "", "" };
                     int i = 0;
                     foreach (String property in requiredProperties)
                         foreach (Object myCollection in result.Properties[property])
@@ -372,27 +355,25 @@ namespace desktopDashboard___Y_Lee
                             if (results[i] != "")
                                 i++;
                             results[i] = myCollection.ToString();
-                        }                            
+                        }
                     return results;
                 }
                 else
-                {
                     return null;
-                }     
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
         }
-        public static string[] pingHostname(string inputHostname)
+        public static string[] pingHostname(string hostname)
         {
-            
             Ping myPing = new Ping();
             string[] pingResults = new string[2] { "", "" };
+            string[] failedResult = new string[1] { "TimeOut" };
             try
             {
-                PingReply reply = myPing.Send(inputHostname, 10000);
+                PingReply reply = myPing.Send(hostname, 10000);
 
                 if (reply.Status.ToString() == "Success")
                 {
@@ -401,104 +382,144 @@ namespace desktopDashboard___Y_Lee
                     return pingResults;
                 }
                 else
-                {
                     return null;
-                }
             }
-            catch(Exception e)
+            catch
             {
-                return null;
+                return failedResult;
             }
         }
-        public static void copyfiles(string newPc, string oldPc, string userId, string item)
+        public static string[,] copyfiles(string newPc, string oldPc, string username, string item)
         {
-            if(item == "Edge")
+            
+            if (item == "Edge")
             {
-                string[,] edge = edgePath(newPc, oldPc, userId);
-                for (int i = 0; i < 3; i++)
+                string[,] result = new string[2,3];
+                string[,] edge = copyPath(newPc, oldPc, username, item);
+                
+                for (int i = 0; i<3; i++)
                 {
-                    File.Copy(edge[0, i], edge[1, i], true);
+                    if(!(File.Exists(edge[0, i])))
+                    {
+                        Array.Clear(edge, i, 1);
+                        result[0, i] = (i+1).ToString();            //return numbers when transfer failed
+                    }
+                    else
+                        File.Copy(edge[0, i], edge[1, i], true);    //return Null when transfer success
                 }
+                return result;
             }
-            else if(item == "Chrome")
+            else
             {
-                string[,] edge = chromePath(newPc, oldPc, userId);
+                string[,] result = new string[2, 2];
+                string[,] chrome = copyPath(newPc, oldPc, username, item);
                 for (int i = 0; i < 2; i++)
                 {
-                    File.Copy(edge[0, i], edge[1, i], true);
+                    if (!(File.Exists(chrome[0, i])))
+                    {
+                        Array.Clear(chrome, i, 1);
+                        result[0, i] = (i+1).ToString();                //return numbers when transfer failed
+                    }
+                    else
+                        File.Copy(chrome[0, i], chrome[1, i], true);    //return Null when transfer success
                 }
+                return result;
             }
         }
-        public static void copyDirectory(string inputDestPath, string inputSourcePath, string inputUserId, string item)
+        public static bool copyDirectory(string newPc, string oldPc, string username, string item)
         {
             if (item == "Quick Access")
             {
-                string[,] quickAccess = quickAccessPath(inputDestPath, inputSourcePath, inputUserId);
+                string[,] quickAccess = copyPath(newPc, oldPc, username, item);
                 var files = new DirectoryInfo(quickAccess[1, 0]).GetFiles("*.*");
 
                 foreach (FileInfo file in files)
                 {
                     file.CopyTo(quickAccess[0, 0] + file.Name, true);
                 }
+                return true;
             }
-            if (item == "Outlook Signatures")
+            else if (item == "Outlook Signatures")
             {
-                string[,] outlookSignatures = outlookSignaturesPath(inputDestPath, inputSourcePath, inputUserId);
-                var files = new DirectoryInfo(outlookSignatures[1, 0]).GetFiles("*.*");
+                string[,] outlookSignatures = copyPath(newPc, oldPc, username, item);
 
-                string signaturesFoler = @"\\" + inputDestPath + @"\c$\users\" + inputUserId + @"\appdata\roaming\microsoft\Signatures";
-                if (!Directory.Exists(signaturesFoler))
+                if (!Directory.Exists(outlookSignatures[0, 0]))            //Copy directory has to overwrite the exsiting folder
                 {
-                    Directory.CreateDirectory(signaturesFoler);
+                    Directory.CreateDirectory(outlookSignatures[0, 0]);
                 }
-                
-                foreach (FileInfo file in files)
+
+                if (!Directory.Exists(outlookSignatures[1, 0]))
                 {
-                    file.CopyTo(outlookSignatures[0, 0] + file.Name, true);
+                    return false;
+                }
+                else
+                {
+                    var files = new DirectoryInfo(outlookSignatures[1, 0]).GetFiles("*.*");
+                    foreach (FileInfo file in files)
+                    {
+                        file.CopyTo(outlookSignatures[0, 0] + file.Name, true);
+                    }
+                    return true;
                 }
             }
+            else
+                return false;
         }
-        public static string[,] edgePath(string newPc, string oldPc, string username)
-        {
-            string[,] edgePath = new string[2, 3]
+        public static string[,] confirmPath(string newPc, string oldPc, string username)    //Only to confirm both path are existed
+        {                                                                                   //If a user doesn't sign on new PC, Path won't be found
+            string[,] path = new string[2, 1]
             {
-                { @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks",
-                    @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.bak",
-                    @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.msbak" },
-                { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks",
-                    @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.bak",
-                    @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.msbak" }
+                { @"\\" + oldPc + @"\c$\users\" + username},
+                { @"\\" + newPc + @"\c$\users\" + username}
             };
-            return edgePath;
+            return path;
         }
-        public static string[,] chromePath(string newPc, string oldPc, string username)
+        public static string[,] copyPath(string newPc, string oldPc, string username, string item)
         {
-            string[,] chromePath = new string[2, 2]
+            if (item == "Edge")
             {
-                { @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks",
-                    @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks.bak",},
-                { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks",
-                    @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks.bak",}
-            };
-            return chromePath;
-        }
-        public static string[,] quickAccessPath(string newPc, string oldPc, string username)
-        {
-            string[,] quickAccessPath = new string[2, 1]
+                string[,] path = new string[2, 3]
+                {
+                    { @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks",
+                        @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.bak",
+                        @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.msbak" },
+                    { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks",
+                        @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.bak",
+                        @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\microsoft\edge\user data\default\bookmarks.msbak" }
+                };
+                return path;
+            }
+            else if (item == "Chrome")
             {
-                { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Windows\Recent\automaticDestinations\"},
-                {@"\\" + oldPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Windows\Recent\automaticDestinations"}
-            };
-            return quickAccessPath;
-        }
-        public static string[,] outlookSignaturesPath(string newPc, string oldPc, string username)
-        {
-            string[,] outlookSignaturesPath = new string[2, 1]
+                string[,] path = new string[2, 2]
+                {
+                    { @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks",
+                        @"\\" + oldPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks.bak",},
+                    { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks",
+                        @"\\" + newPc + @"\c$\users\" + username + @"\appdata\local\google\chrome\user data\default\bookmarks.bak",}
+                };
+                return path;
+            }
+            else if (item == "Quick Access")
             {
-                { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Signatures\"},
-                {@"\\" + oldPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Signatures"}
-            };
-            return outlookSignaturesPath;
+                string[,] path = new string[2, 1]
+                {
+                    { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Windows\Recent\automaticDestinations\"},
+                    {@"\\" + oldPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Windows\Recent\automaticDestinations"}
+                };
+                return path;
+            }
+            else if (item == "Outlook Signatures")
+            {
+                string[,] path = new string[2, 1]
+                {
+                    { @"\\" + newPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Signatures\"},
+                    {@"\\" + oldPc + @"\c$\users\" + username + @"\appdata\roaming\microsoft\Signatures"}
+                };
+                return path;
+            }
+            else
+                return null;
         }
     }
 }
