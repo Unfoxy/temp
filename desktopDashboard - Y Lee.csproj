@@ -47,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>desktopIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
@@ -72,42 +75,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\accountLockedUser.cs">
+    <Compile Include="Forms\Dashboard\accountLockedUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\accountLockedUser.Designer.cs">
+    <Compile Include="Forms\Dashboard\accountLockedUser.Designer.cs">
       <DependentUpon>accountLockedUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\accountExpiredUser.cs">
+    <Compile Include="Forms\Dashboard\accountExpiredUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\accountExpiredUser.Designer.cs">
+    <Compile Include="Forms\Dashboard\accountExpiredUser.Designer.cs">
       <DependentUpon>accountExpiredUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\passwordExpiredUser.cs">
+    <Compile Include="Forms\Dashboard\passwordExpiredUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\passwordExpiredUser.Designer.cs">
+    <Compile Include="Forms\Dashboard\passwordExpiredUser.Designer.cs">
       <DependentUpon>passwordExpiredUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\deactivatedUser.cs">
+    <Compile Include="Forms\Dashboard\deactivatedUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\deactivatedUser.Designer.cs">
+    <Compile Include="Forms\Dashboard\deactivatedUser.Designer.cs">
       <DependentUpon>deactivatedUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Forms\dataMigration.cs">
+    <Compile Include="Forms\Utility Tools\dataMigration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\dataMigration.Designer.cs">
+    <Compile Include="Forms\Utility Tools\dataMigration.Designer.cs">
       <DependentUpon>dataMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\deleteUser.cs">
+    <Compile Include="Forms\Active Directory\deleteUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\deleteUser.Designer.cs">
+    <Compile Include="Forms\Active Directory\deleteUser.Designer.cs">
       <DependentUpon>deleteUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\formMain.cs">
@@ -116,87 +119,87 @@
     <Compile Include="Forms\formMain.Designer.cs">
       <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\lookupHostname.cs">
+    <Compile Include="Forms\Utility Tools\lookupHostname.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\lookupHostname.Designer.cs">
+    <Compile Include="Forms\Utility Tools\lookupHostname.Designer.cs">
       <DependentUpon>lookupHostname.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\lookupUser.cs">
+    <Compile Include="Forms\Utility Tools\lookupUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\lookupUser.Designer.cs">
+    <Compile Include="Forms\Utility Tools\lookupUser.Designer.cs">
       <DependentUpon>lookupUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\pingPc.cs">
+    <Compile Include="Forms\Utility Tools\pingPc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\pingPc.Designer.cs">
+    <Compile Include="Forms\Utility Tools\pingPc.Designer.cs">
       <DependentUpon>pingPc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\remoteRegistry.cs">
+    <Compile Include="Forms\Troubleshooting Tools\remoteRegistry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\remoteRegistry.Designer.cs">
+    <Compile Include="Forms\Troubleshooting Tools\remoteRegistry.Designer.cs">
       <DependentUpon>remoteRegistry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\resetPassword.cs">
+    <Compile Include="Forms\Active Directory\resetPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\resetPassword.Designer.cs">
+    <Compile Include="Forms\Active Directory\resetPassword.Designer.cs">
       <DependentUpon>resetPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\accountLockedUser.resx">
+    <EmbeddedResource Include="Forms\Dashboard\accountLockedUser.resx">
       <DependentUpon>accountLockedUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\accountExpiredUser.resx">
+    <EmbeddedResource Include="Forms\Dashboard\accountExpiredUser.resx">
       <DependentUpon>accountExpiredUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\passwordExpiredUser.resx">
+    <EmbeddedResource Include="Forms\Dashboard\passwordExpiredUser.resx">
       <DependentUpon>passwordExpiredUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\deactivatedUser.resx">
+    <EmbeddedResource Include="Forms\Dashboard\deactivatedUser.resx">
       <DependentUpon>deactivatedUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\dataMigration.resx">
+    <EmbeddedResource Include="Forms\Utility Tools\dataMigration.resx">
       <DependentUpon>dataMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\deleteUser.resx">
+    <EmbeddedResource Include="Forms\Active Directory\deleteUser.resx">
       <DependentUpon>deleteUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\lookupHostname.resx">
+    <EmbeddedResource Include="Forms\Utility Tools\lookupHostname.resx">
       <DependentUpon>lookupHostname.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\lookupUser.resx">
+    <EmbeddedResource Include="Forms\Utility Tools\lookupUser.resx">
       <DependentUpon>lookupUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\pingPc.resx">
+    <EmbeddedResource Include="Forms\Utility Tools\pingPc.resx">
       <DependentUpon>pingPc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\remoteRegistry.resx">
+    <EmbeddedResource Include="Forms\Troubleshooting Tools\remoteRegistry.resx">
       <DependentUpon>remoteRegistry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\resetPassword.resx">
+    <EmbeddedResource Include="Forms\Active Directory\resetPassword.resx">
       <DependentUpon>resetPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -207,7 +210,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\exitIcon.png" />
+    <Content Include="desktopIcon.ico" />
+    <Content Include="Images\closeWhite.png" />
+    <Content Include="Images\desktopIcon.png" />
+    <Content Include="Images\miniWhite.png" />
     <Content Include="Images\userIcon.png" />
   </ItemGroup>
   <ItemGroup>

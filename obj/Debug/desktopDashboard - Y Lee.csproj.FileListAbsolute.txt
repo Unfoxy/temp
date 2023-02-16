@@ -1,0 +1,22 @@
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.csproj.AssemblyReference.cache
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.csproj.SuggestedBindingRedirects.cache
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.accountLockedUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.accountExpiredUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.passwordExpiredUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.deactivatedUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.dataMigration.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.deleteUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.formMain.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.lookupHostname.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.lookupUser.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.pingPc.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.remoteRegistry.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.resetPassword.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.csproj.GenerateResource.cache
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Properties.Resources.resources
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.csproj.CoreCompileInputs.cache
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\bin\Debug\desktopDashboard - Y Lee.exe.config
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\bin\Debug\desktopDashboard - Y Lee.exe
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\bin\Debug\desktopDashboard - Y Lee.pdb
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.exe
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.pdb

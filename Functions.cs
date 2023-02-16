@@ -13,53 +13,7 @@ namespace desktopDashboard___Y_Lee
 {
     public class Functions
     {
-        public static void createUser()
-        {
-            //try
-            //{
-            //    PrincipalContext pricipalContext = null;
-            //    pricipalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
-            //    //Sometimes we need to connect to AD using service/admin account credentials, in that case the above line of code will be as below
-            //    //pricipalContext = new PrincipalContext(ContextType.Domain, "yourdomain.com", "OU=TestOU,DC=yourdomain,DC=com","YourAdminUser","YourAdminPassword");
-            //    UserPrincipal up = new UserPrincipal(pricipalContext);
-            //    up.SamAccountName = "yxl13153";
-            //    up.DisplayName = "Test User";
-            //    up.EmailAddress = "test@ineos.com";
-            //    up.GivenName = "dump";
-            //    up.Name = "Test User";
-            //    up.Description = "User Created for testing";
-            //    up.Enabled = true;
-            //    up.SetPassword("Ineos2023");
-            //    up.Save();
-            //    MessageBox.Show("User Created");
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-
-            //try
-            //{
-            //    DirectoryEntry directoryEntry = new DirectoryEntry("");
-            //    directoryEntry.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            //    directoryEntry.AuthenticationType = AuthenticationTypes.Secure;
-
-
-            //    DirectoryEntry childEntry = directoryEntry.Children.Add("CN=TestUser", "user");
-            //    childEntry.Properties["samAccountName"].Value = "test12345";
-            //    childEntry.Properties["mail"].Value = "test12345@ineos.com";
-            //    childEntry.CommitChanges();
-            //    directoryEntry.CommitChanges();
-            //    childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
-            //    childEntry.CommitChanges();
-            //    MessageBox.Show("User Created");
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-        }
-        public static Tuple<string[], string[], int> queryAD(string site, string filter)
+        public static Tuple<string[], string[], string[], int> queryAD(string site, string filter)
         {
             DirectoryEntry ldapConnection = new DirectoryEntry("");
             ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"; //Default All Sites
@@ -68,32 +22,21 @@ namespace desktopDashboard___Y_Lee
             var expiredTime = DateTime.Now.AddDays(-180).ToFileTime();                //Account expiration date 180days
 
             if (site.ToUpper() == "BMC")
-            {
                 ldapConnection.Path = "LDAP://OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "MVW")
-            {
                 ldapConnection.Path = "LDAP://OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "CHO")
-            {
                 ldapConnection.Path = "LDAP://OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "LAR")
-            {
                 ldapConnection.Path = "LDAP://OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "HDC")
-            {
                 ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
 
             if (filter == "Account Deactivated Users")
             {
                 search.Filter = "(&"
                                     + "(userAccountControl=" + "514" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"   //AT12 filters few contractors
                                     + ")";
             }
             else if (filter == "Password Expired Users")
@@ -101,7 +44,6 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(pwdLastSet<=" + expiredTime + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + ")";
             }
@@ -110,7 +52,6 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(lockoutTime>=" + "1" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + ")";
             }
             else if (filter == "Account Expired Users")
@@ -118,7 +59,6 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                    + "(accountExpires<=" + expiredTime + ")"
                                    + "(userAccountControl=" + "512" + ")"
-                                   //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                    + "(extensionAttribute2=" + "OP USA" + ")"
                                    + "(!" + "(accountExpires=" + "0" + ")"
                                    + ")"
@@ -127,7 +67,7 @@ namespace desktopDashboard___Y_Lee
 
             try
             {
-                string[] requiredProperties = new string[] { "cn", "sAMAccountName" };
+                string[] requiredProperties = new string[] { "cn", "sAMAccountName", "mail" };      //Name, NTID from AD Attributes
 
                 foreach (String property in requiredProperties)
                     search.PropertiesToLoad.Add(property);
@@ -136,15 +76,28 @@ namespace desktopDashboard___Y_Lee
 
                 string[] name = new string[1000];       //Max number for the output
                 string[] ntid = new string[1000];       //Max number for the output
+                string[] email = new string[1000];       //Max number for the output
                 int count = 0;
                 foreach (SearchResult userResults in result)
                 {
-                    name[count] = userResults.Properties["cn"][0].ToString();
-                    ntid[count] = userResults.Properties["sAMAccountName"][0].ToString();
+                    if (!userResults.Properties.Contains("cn"))
+                        name[count] = "";
+                    else
+                        name[count] = userResults.Properties["cn"][0].ToString();
+
+                    if (!userResults.Properties.Contains("sAMAccountName"))
+                        ntid[count] = "";
+                    else
+                        ntid[count] = userResults.Properties["sAMAccountName"][0].ToString();
+
+                    if (!userResults.Properties.Contains("mail"))
+                        email[count] = "";
+                    else
+                        email[count] = userResults.Properties["mail"][0].ToString();
+
                     count++;
                 }
-
-                return Tuple.Create(name, ntid, count);
+                return Tuple.Create(name, ntid, email, count);
             }
             catch
             {
@@ -157,35 +110,24 @@ namespace desktopDashboard___Y_Lee
             ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"; //Default All Sites
             ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
             DirectorySearcher search = new DirectorySearcher(ldapConnection);
-            var expiredTime = DateTime.Now.AddDays(-180).ToFileTime();                //Account expiration date
+            var expiredTime = DateTime.Now.AddDays(-180).ToFileTime();                //Account expiration date 180days
 
             if (site.ToUpper() == "BMC:")
-            {
                 ldapConnection.Path = "LDAP://OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "MVW:")
-            {
                 ldapConnection.Path = "LDAP://OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "CHO:")
-            {
                 ldapConnection.Path = "LDAP://OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "LAR:")
-            {
                 ldapConnection.Path = "LDAP://OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
             else if (site.ToUpper() == "HDC:")
-            {
                 ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            }
 
             if (filter == "Account Deactivated Users")
             {
                 search.Filter = "(&"
                                     + "(userAccountControl=" + "514" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"   //AT12 filters few contractors
                                     + ")";
             }
             else if (filter == "Password Expired Users")
@@ -193,7 +135,6 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(pwdLastSet<=" + expiredTime + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + ")";
             }
@@ -202,7 +143,6 @@ namespace desktopDashboard___Y_Lee
                 search.Filter = "(&"
                                     + "(lockoutTime>=" + "1" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + ")";
             }
             else if (filter == "Account Expired Users")
@@ -211,7 +151,6 @@ namespace desktopDashboard___Y_Lee
                                     + "(accountExpires<=" + expiredTime + ")"
                                     + "(userAccountControl=" + "512" + ")"
                                     + "(extensionAttribute2=" + "OP USA" + ")"
-                                    //+ "(extensionAttribute12=" + "OPUSA_O365" + ")"
                                     + "(!" + "(accountExpires=" + "0" + ")"
                                     + ")"
                                     + ")";
@@ -233,7 +172,7 @@ namespace desktopDashboard___Y_Lee
             inputRegistry = inputRegistry.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001", true); //IPChecksumOffloadIPv4 location
             inputRegistry.SetValue("*IPChecksumOffloadIPv4", "0");
         }
-        public static void startupManual(string hostname)
+        public static void startupChange(string hostname)
         {
             ManagementBaseObject inParam;
             ManagementBaseObject outParam;
@@ -247,21 +186,7 @@ namespace desktopDashboard___Y_Lee
                     inParam["StartMode"] = "Manual";
                     outParam = obj.InvokeMethod("ChangeStartMode", inParam, null);
                 }
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        public static void startupDisabled(string hostname)
-        {
-            ManagementBaseObject inParam;
-            ManagementBaseObject outParam;
-            var serviceController = new ServiceController();
-            ManagementObject obj = new ManagementObject(@"\\" + hostname + "\\root\\cimv2:Win32_Service.Name='RemoteRegistry'");
-            try
-            {
-                if (obj["StartMode"].ToString() == "Manual")
+                else if (obj["StartMode"].ToString() == "Manual")
                 {
                     inParam = obj.GetMethodParameters("ChangeStartMode");
                     inParam["StartMode"] = "Disabled";
@@ -308,15 +233,6 @@ namespace desktopDashboard___Y_Lee
                 throw;
             }
         }
-        public static void resetPassword(string username)
-        {
-            PrincipalContext context = new PrincipalContext(ContextType.Domain);
-            UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
-            //user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
-            user.SetPassword("Ineos2023");
-            user.ExpirePasswordNow();         //Force user to change password at next logon
-            user.Save();
-        }
         public static string[] GetAD(string username)
         {
             try
@@ -333,9 +249,10 @@ namespace desktopDashboard___Y_Lee
                                    + "(cn=" + username + ")"
                                    + ")";
 
-                string[] requiredProperties = new string[] { "cn",
+                string[] requiredProperties = new string[] { "cn",                                  //Name, mail, NTID, Site, Ofiice, Telephone, Job title
                                                            "mail",
                                                  "sAMAccountName",
+                                            "extensionAttribute1",
                                      "physicalDeliveryOfficeName",
                                                 "telephoneNumber", 
                                                           "title" };
@@ -347,7 +264,7 @@ namespace desktopDashboard___Y_Lee
 
                 if (result != null)
                 {
-                    string[] results = new string[6] { "", "", "", "", "", "" };
+                    string[] results = new string[7] { "", "", "", "", "", "","" };
                     int i = 0;
                     foreach (String property in requiredProperties)
                         foreach (Object myCollection in result.Properties[property])
@@ -379,22 +296,22 @@ namespace desktopDashboard___Y_Lee
                 {
                     pingResults[0] = reply.Address.ToString();
                     pingResults[1] = reply.RoundtripTime.ToString();
-                    return pingResults;
+                    return pingResults;     //Online PC
                 }
                 else
-                    return null;
+                    return null;            //Offline PC
             }
             catch
             {
-                return failedResult;
+                return failedResult;        //Invalid PC Name
             }
         }
         public static string[,] copyfiles(string newPc, string oldPc, string username, string item)
         {
             
-            if (item == "Edge")
+            if (item == "Edge Bookmarks")
             {
-                string[,] result = new string[2,3];
+                string[,] result = new string[2,3];                     //Edge Bookmark Transfer requires 3 files to copy over
                 string[,] edge = copyPath(newPc, oldPc, username, item);
                 
                 for (int i = 0; i<3; i++)
@@ -402,26 +319,26 @@ namespace desktopDashboard___Y_Lee
                     if(!(File.Exists(edge[0, i])))
                     {
                         Array.Clear(edge, i, 1);
-                        result[0, i] = (i+1).ToString();            //return numbers when transfer failed
+                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which one is failed to transfer
                     }
                     else
-                        File.Copy(edge[0, i], edge[1, i], true);    //return Null when transfer success
+                        File.Copy(edge[0, i], edge[1, i], true);        //Transfer success will return a null to a string array
                 }
                 return result;
             }
             else
             {
-                string[,] result = new string[2, 2];
+                string[,] result = new string[2, 2];                    //Chrome Bookmark transfer requires 2 files to copy over
                 string[,] chrome = copyPath(newPc, oldPc, username, item);
                 for (int i = 0; i < 2; i++)
                 {
                     if (!(File.Exists(chrome[0, i])))
                     {
                         Array.Clear(chrome, i, 1);
-                        result[0, i] = (i+1).ToString();                //return numbers when transfer failed
+                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which one is failed to transfer
                     }
                     else
-                        File.Copy(chrome[0, i], chrome[1, i], true);    //return Null when transfer success
+                        File.Copy(chrome[0, i], chrome[1, i], true);    //Transfer success will return a null to a string array
                 }
                 return result;
             }
@@ -434,9 +351,8 @@ namespace desktopDashboard___Y_Lee
                 var files = new DirectoryInfo(quickAccess[1, 0]).GetFiles("*.*");
 
                 foreach (FileInfo file in files)
-                {
                     file.CopyTo(quickAccess[0, 0] + file.Name, true);
-                }
+
                 return true;
             }
             else if (item == "Outlook Signatures")
@@ -444,29 +360,24 @@ namespace desktopDashboard___Y_Lee
                 string[,] outlookSignatures = copyPath(newPc, oldPc, username, item);
 
                 if (!Directory.Exists(outlookSignatures[0, 0]))            //Copy directory has to overwrite the exsiting folder
-                {
                     Directory.CreateDirectory(outlookSignatures[0, 0]);
-                }
 
                 if (!Directory.Exists(outlookSignatures[1, 0]))
-                {
                     return false;
-                }
                 else
                 {
                     var files = new DirectoryInfo(outlookSignatures[1, 0]).GetFiles("*.*");
                     foreach (FileInfo file in files)
-                    {
                         file.CopyTo(outlookSignatures[0, 0] + file.Name, true);
-                    }
+
                     return true;
                 }
             }
             else
                 return false;
         }
-        public static string[,] confirmPath(string newPc, string oldPc, string username)    //Only to confirm both path are existed
-        {                                                                                   //If a user doesn't sign on new PC, Path won't be found
+        public static string[,] confirmPath(string newPc, string oldPc, string username)    //Only to confirm both path(New and Old PCs) are existed
+        {                                                                                   //If a user have not signed on both PC yet, then Path won't be existed
             string[,] path = new string[2, 1]
             {
                 { @"\\" + oldPc + @"\c$\users\" + username},
@@ -476,7 +387,7 @@ namespace desktopDashboard___Y_Lee
         }
         public static string[,] copyPath(string newPc, string oldPc, string username, string item)
         {
-            if (item == "Edge")
+            if (item == "Edge Bookmarks")
             {
                 string[,] path = new string[2, 3]
                 {
@@ -489,7 +400,7 @@ namespace desktopDashboard___Y_Lee
                 };
                 return path;
             }
-            else if (item == "Chrome")
+            else if (item == "Chrome Bookmarks")
             {
                 string[,] path = new string[2, 2]
                 {
@@ -521,5 +432,60 @@ namespace desktopDashboard___Y_Lee
             else
                 return null;
         }
+        //public static void resetPassword(string username)
+        //{
+        //    PrincipalContext context = new PrincipalContext(ContextType.Domain);
+        //    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+        //    //user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
+        //    user.SetPassword("Ineos2023");
+        //    user.ExpirePasswordNow();         //Force user to change password at next logon
+        //    user.Save();
+        //}
+        //public static void createUser()
+        //{
+        //    try
+        //    {
+        //        PrincipalContext pricipalContext = null;
+        //        pricipalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
+        //        //Sometimes we need to connect to AD using service/admin account credentials, in that case the above line of code will be as below
+        //        //pricipalContext = new PrincipalContext(ContextType.Domain, "yourdomain.com", "OU=TestOU,DC=yourdomain,DC=com","YourAdminUser","YourAdminPassword");
+        //        UserPrincipal up = new UserPrincipal(pricipalContext);
+        //        up.SamAccountName = "yxl13153";
+        //        up.DisplayName = "Test User";
+        //        up.EmailAddress = "test@ineos.com";
+        //        up.GivenName = "dump";
+        //        up.Name = "Test User";
+        //        up.Description = "User Created for testing";
+        //        up.Enabled = true;
+        //        up.SetPassword("Ineos2023");
+        //        up.Save();
+        //        MessageBox.Show("User Created");
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+
+        //    try
+        //    {
+        //        DirectoryEntry directoryEntry = new DirectoryEntry("");
+        //        directoryEntry.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+        //        directoryEntry.AuthenticationType = AuthenticationTypes.Secure;
+
+
+        //        DirectoryEntry childEntry = directoryEntry.Children.Add("CN=TestUser", "user");
+        //        childEntry.Properties["samAccountName"].Value = "test12345";
+        //        childEntry.Properties["mail"].Value = "test12345@ineos.com";
+        //        childEntry.CommitChanges();
+        //        directoryEntry.CommitChanges();
+        //        childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
+        //        childEntry.CommitChanges();
+        //        MessageBox.Show("User Created");
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
     }
 }
