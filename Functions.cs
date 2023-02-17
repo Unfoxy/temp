@@ -13,6 +13,75 @@ namespace desktopDashboard___Y_Lee
 {
     public class Functions
     {
+        public static void resetPassword(string username)
+        {
+            //PrincipalContext context = new PrincipalContext(ContextType.Domain);
+            //UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
+            ////user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
+            //user.SetPassword("Ineos2023");
+            //user.ExpirePasswordNow();         //Force user to change password at next logon
+            //user.Save();
+
+            DirectoryEntry account = new DirectoryEntry("LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com", null, null, AuthenticationTypes.Secure | AuthenticationTypes.Sealing | AuthenticationTypes.Signing);
+            DirectorySearcher search = new DirectorySearcher(account);
+            search.Filter = "(&(objectClass=user)(sAMAccountName=" + username + "))";
+            account = search.FindOne().GetDirectoryEntry();
+
+            account.Invoke("SetPassword", "Ineos2023");
+            account.Properties["LockOutTime"].Value = 0;        //Unlock Account
+            account.Properties["pwdLastSet"][0] = 0;            //Prompt User to Reset Password
+            account.CommitChanges();
+        }
+        public static string[] GetAD(string username)
+        {
+            try
+            {
+                DirectoryEntry ldapConnection = new DirectoryEntry("");
+                ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";           //For all Ineos sites
+                ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
+                DirectorySearcher search = new DirectorySearcher(ldapConnection);
+
+                search.Filter = "(|"                                                                //Multiple search options
+                                   + "(sAMAccountName=" + username + ")"
+                                   + "(mail=" + username + ")"
+                                   + "(mail=" + username + "@ineos.com" + ")"
+                                   + "(cn=" + username + ")"
+                                   + ")";
+
+                string[] requiredProperties = new string[] { "cn",                                  //Name, mail, NTID, Site, Ofiice, Telephone, Job title
+                                                           "mail",
+                                                 "sAMAccountName",
+                                            "extensionAttribute1",
+                                     "physicalDeliveryOfficeName",
+                                                "telephoneNumber",
+                                                          "title" };
+
+                foreach (String property in requiredProperties)
+                    search.PropertiesToLoad.Add(property);
+
+                SearchResult result = search.FindOne();
+
+                if (result != null)
+                {
+                    string[] results = new string[7] { "", "", "", "", "", "", "" };
+                    int i = 0;
+                    foreach (String property in requiredProperties)
+                        foreach (Object myCollection in result.Properties[property])
+                        {
+                            if (results[i] != "")
+                                i++;
+                            results[i] = myCollection.ToString();
+                        }
+                    return results;
+                }
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public static Tuple<string[], string[], string[], int> queryAD(string site, string filter)
         {
             DirectoryEntry ldapConnection = new DirectoryEntry("");
@@ -233,56 +302,6 @@ namespace desktopDashboard___Y_Lee
                 throw;
             }
         }
-        public static string[] GetAD(string username)
-        {
-            try
-            {
-                DirectoryEntry ldapConnection = new DirectoryEntry("");
-                ldapConnection.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";           //For all Ineos sites
-                ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
-                DirectorySearcher search = new DirectorySearcher(ldapConnection);
-
-                search.Filter = "(|"                                                                //Multiple search options
-                                   + "(sAMAccountName=" + username + ")"
-                                   + "(mail=" + username + ")"
-                                   + "(mail=" + username + "@ineos.com" + ")"
-                                   + "(cn=" + username + ")"
-                                   + ")";
-
-                string[] requiredProperties = new string[] { "cn",                                  //Name, mail, NTID, Site, Ofiice, Telephone, Job title
-                                                           "mail",
-                                                 "sAMAccountName",
-                                            "extensionAttribute1",
-                                     "physicalDeliveryOfficeName",
-                                                "telephoneNumber", 
-                                                          "title" };
-
-                foreach (String property in requiredProperties)
-                    search.PropertiesToLoad.Add(property);
-
-                SearchResult result = search.FindOne();
-
-                if (result != null)
-                {
-                    string[] results = new string[7] { "", "", "", "", "", "","" };
-                    int i = 0;
-                    foreach (String property in requiredProperties)
-                        foreach (Object myCollection in result.Properties[property])
-                        {
-                            if (results[i] != "")
-                                i++;
-                            results[i] = myCollection.ToString();
-                        }
-                    return results;
-                }
-                else
-                    return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
         public static string[] pingHostname(string hostname)
         {
             Ping myPing = new Ping();
@@ -377,7 +396,7 @@ namespace desktopDashboard___Y_Lee
                 return false;
         }
         public static string[,] confirmPath(string newPc, string oldPc, string username)    //Only to confirm both path(New and Old PCs) are existed
-        {                                                                                   //If a user have not signed on both PC yet, then Path won't be existed
+        {                                                                                   //If a user have not signed on both PC, then Path won't be existed
             string[,] path = new string[2, 1]
             {
                 { @"\\" + oldPc + @"\c$\users\" + username},
@@ -432,15 +451,6 @@ namespace desktopDashboard___Y_Lee
             else
                 return null;
         }
-        //public static void resetPassword(string username)
-        //{
-        //    PrincipalContext context = new PrincipalContext(ContextType.Domain);
-        //    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
-        //    //user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
-        //    user.SetPassword("Ineos2023");
-        //    user.ExpirePasswordNow();         //Force user to change password at next logon
-        //    user.Save();
-        //}
         //public static void createUser()
         //{
         //    try

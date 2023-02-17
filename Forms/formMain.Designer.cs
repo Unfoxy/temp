@@ -46,8 +46,11 @@
             this.btnUtilitytools = new System.Windows.Forms.Button();
             this.pnDrDashboard = new System.Windows.Forms.Panel();
             this.btnDashboard = new System.Windows.Forms.Button();
+            this.picBoxMainForm = new System.Windows.Forms.PictureBox();
             this.pnMainTop = new System.Windows.Forms.Panel();
+            this.pbMinimize = new System.Windows.Forms.PictureBox();
             this.lbMainTop = new System.Windows.Forms.Label();
+            this.pbExit = new System.Windows.Forms.PictureBox();
             this.pnMain = new System.Windows.Forms.Panel();
             this.pnDashboardAccountExpired = new System.Windows.Forms.Panel();
             this.lbDashboardAccountExpiredHDCNumber = new System.Windows.Forms.Label();
@@ -105,23 +108,20 @@
             this.lbDashboardAccountDeactivatedMVW = new System.Windows.Forms.Label();
             this.lbDashboardPasswordExpired = new System.Windows.Forms.Label();
             this.lbDashboardAccountDeactivated = new System.Windows.Forms.Label();
-            this.pbMinimize = new System.Windows.Forms.PictureBox();
-            this.pbExit = new System.Windows.Forms.PictureBox();
-            this.picBoxMainForm = new System.Windows.Forms.PictureBox();
             this.pnMenu.SuspendLayout();
             this.pnDrTroubleshootingtools.SuspendLayout();
             this.pnDrActivedirectory.SuspendLayout();
             this.pnDrUtilitytools.SuspendLayout();
             this.pnDrDashboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxMainForm)).BeginInit();
             this.pnMainTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExit)).BeginInit();
             this.pnMain.SuspendLayout();
             this.pnDashboardAccountExpired.SuspendLayout();
             this.pnDashboardAccountLocked.SuspendLayout();
             this.pnDashboardPasswordExpired.SuspendLayout();
             this.pnDashboardAccountDeactivated.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxMainForm)).BeginInit();
             this.SuspendLayout();
             // 
             // pnMenu
@@ -248,13 +248,13 @@
             this.btnResetpassword.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnResetpassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetpassword.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetpassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnResetpassword.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnResetpassword.Location = new System.Drawing.Point(0, 50);
             this.btnResetpassword.Margin = new System.Windows.Forms.Padding(0);
             this.btnResetpassword.Name = "btnResetpassword";
             this.btnResetpassword.Size = new System.Drawing.Size(279, 25);
             this.btnResetpassword.TabIndex = 19;
-            this.btnResetpassword.Text = "Reset Password - Not Working Yet";
+            this.btnResetpassword.Text = "Reset Password";
             this.btnResetpassword.UseVisualStyleBackColor = false;
             this.btnResetpassword.Click += new System.EventHandler(this.btnResetpassword_Click);
             // 
@@ -411,6 +411,20 @@
             this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
+            // picBoxMainForm
+            // 
+            this.picBoxMainForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.picBoxMainForm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.picBoxMainForm.ErrorImage = null;
+            this.picBoxMainForm.Image = ((System.Drawing.Image)(resources.GetObject("picBoxMainForm.Image")));
+            this.picBoxMainForm.InitialImage = null;
+            this.picBoxMainForm.Location = new System.Drawing.Point(0, 0);
+            this.picBoxMainForm.Name = "picBoxMainForm";
+            this.picBoxMainForm.Size = new System.Drawing.Size(279, 100);
+            this.picBoxMainForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBoxMainForm.TabIndex = 0;
+            this.picBoxMainForm.TabStop = false;
+            // 
             // pnMainTop
             // 
             this.pnMainTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
@@ -424,6 +438,19 @@
             this.pnMainTop.TabIndex = 2;
             this.pnMainTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
             // 
+            // pbMinimize
+            // 
+            this.pbMinimize.ErrorImage = null;
+            this.pbMinimize.Image = ((System.Drawing.Image)(resources.GetObject("pbMinimize.Image")));
+            this.pbMinimize.InitialImage = null;
+            this.pbMinimize.Location = new System.Drawing.Point(834, 0);
+            this.pbMinimize.Name = "pbMinimize";
+            this.pbMinimize.Size = new System.Drawing.Size(32, 32);
+            this.pbMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbMinimize.TabIndex = 20;
+            this.pbMinimize.TabStop = false;
+            this.pbMinimize.Click += new System.EventHandler(this.pbMinimize_Click);
+            // 
             // lbMainTop
             // 
             this.lbMainTop.AutoSize = true;
@@ -435,6 +462,19 @@
             this.lbMainTop.Size = new System.Drawing.Size(291, 25);
             this.lbMainTop.TabIndex = 0;
             this.lbMainTop.Text = "Desktop Dashboard v1.0.0";
+            // 
+            // pbExit
+            // 
+            this.pbExit.ErrorImage = null;
+            this.pbExit.Image = ((System.Drawing.Image)(resources.GetObject("pbExit.Image")));
+            this.pbExit.InitialImage = null;
+            this.pbExit.Location = new System.Drawing.Point(869, 0);
+            this.pbExit.Name = "pbExit";
+            this.pbExit.Size = new System.Drawing.Size(32, 32);
+            this.pbExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbExit.TabIndex = 0;
+            this.pbExit.TabStop = false;
+            this.pbExit.Click += new System.EventHandler(this.pbExit_Click);
             // 
             // pnMain
             // 
@@ -1152,46 +1192,6 @@
             this.lbDashboardAccountDeactivated.TabIndex = 1;
             this.lbDashboardAccountDeactivated.Text = "Account Deactivated Users";
             // 
-            // pbMinimize
-            // 
-            this.pbMinimize.ErrorImage = null;
-            this.pbMinimize.Image = ((System.Drawing.Image)(resources.GetObject("pbMinimize.Image")));
-            this.pbMinimize.InitialImage = null;
-            this.pbMinimize.Location = new System.Drawing.Point(834, 0);
-            this.pbMinimize.Name = "pbMinimize";
-            this.pbMinimize.Size = new System.Drawing.Size(32, 32);
-            this.pbMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbMinimize.TabIndex = 20;
-            this.pbMinimize.TabStop = false;
-            this.pbMinimize.Click += new System.EventHandler(this.pbMinimize_Click);
-            // 
-            // pbExit
-            // 
-            this.pbExit.ErrorImage = null;
-            this.pbExit.Image = ((System.Drawing.Image)(resources.GetObject("pbExit.Image")));
-            this.pbExit.InitialImage = null;
-            this.pbExit.Location = new System.Drawing.Point(869, 0);
-            this.pbExit.Name = "pbExit";
-            this.pbExit.Size = new System.Drawing.Size(32, 32);
-            this.pbExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbExit.TabIndex = 0;
-            this.pbExit.TabStop = false;
-            this.pbExit.Click += new System.EventHandler(this.pbExit_Click);
-            // 
-            // picBoxMainForm
-            // 
-            this.picBoxMainForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.picBoxMainForm.Dock = System.Windows.Forms.DockStyle.Top;
-            this.picBoxMainForm.ErrorImage = null;
-            this.picBoxMainForm.Image = ((System.Drawing.Image)(resources.GetObject("picBoxMainForm.Image")));
-            this.picBoxMainForm.InitialImage = null;
-            this.picBoxMainForm.Location = new System.Drawing.Point(0, 0);
-            this.picBoxMainForm.Name = "picBoxMainForm";
-            this.picBoxMainForm.Size = new System.Drawing.Size(279, 100);
-            this.picBoxMainForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBoxMainForm.TabIndex = 0;
-            this.picBoxMainForm.TabStop = false;
-            // 
             // formMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1211,8 +1211,11 @@
             this.pnDrActivedirectory.ResumeLayout(false);
             this.pnDrUtilitytools.ResumeLayout(false);
             this.pnDrDashboard.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxMainForm)).EndInit();
             this.pnMainTop.ResumeLayout(false);
             this.pnMainTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExit)).EndInit();
             this.pnMain.ResumeLayout(false);
             this.pnMain.PerformLayout();
             this.pnDashboardAccountExpired.ResumeLayout(false);
@@ -1223,9 +1226,6 @@
             this.pnDashboardPasswordExpired.PerformLayout();
             this.pnDashboardAccountDeactivated.ResumeLayout(false);
             this.pnDashboardAccountDeactivated.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMinimize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxMainForm)).EndInit();
             this.ResumeLayout(false);
 
         }

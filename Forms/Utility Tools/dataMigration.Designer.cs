@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnDataMigrationMain = new System.Windows.Forms.Panel();
+            this.lbDataMigration = new System.Windows.Forms.Label();
             this.comboxDataMigration = new System.Windows.Forms.ComboBox();
             this.lbDataMigrationDropBox = new System.Windows.Forms.Label();
             this.lbDataMigrationUserId = new System.Windows.Forms.Label();
@@ -41,7 +42,6 @@
             this.pnDataMigrationTop = new System.Windows.Forms.Panel();
             this.lbDataMigrationTop = new System.Windows.Forms.Label();
             this.rtxtDataMigration = new System.Windows.Forms.RichTextBox();
-            this.lbPasswordExpiredUser = new System.Windows.Forms.Label();
             this.pnDataMigrationMain.SuspendLayout();
             this.pnDataMigrationTop.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +49,7 @@
             // pnDataMigrationMain
             // 
             this.pnDataMigrationMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.pnDataMigrationMain.Controls.Add(this.lbPasswordExpiredUser);
+            this.pnDataMigrationMain.Controls.Add(this.lbDataMigration);
             this.pnDataMigrationMain.Controls.Add(this.comboxDataMigration);
             this.pnDataMigrationMain.Controls.Add(this.lbDataMigrationDropBox);
             this.pnDataMigrationMain.Controls.Add(this.lbDataMigrationUserId);
@@ -67,6 +67,19 @@
             this.pnDataMigrationMain.Name = "pnDataMigrationMain";
             this.pnDataMigrationMain.Size = new System.Drawing.Size(901, 680);
             this.pnDataMigrationMain.TabIndex = 3;
+            // 
+            // lbDataMigration
+            // 
+            this.lbDataMigration.AutoSize = true;
+            this.lbDataMigration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDataMigration.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lbDataMigration.Location = new System.Drawing.Point(628, 37);
+            this.lbDataMigration.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbDataMigration.Name = "lbDataMigration";
+            this.lbDataMigration.Size = new System.Drawing.Size(254, 20);
+            this.lbDataMigration.TabIndex = 19;
+            this.lbDataMigration.Text = "* End User Must Sign on Both PCs";
+            this.lbDataMigration.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboxDataMigration
             // 
@@ -206,19 +219,6 @@
             this.rtxtDataMigration.TabIndex = 1;
             this.rtxtDataMigration.Text = "";
             // 
-            // lbPasswordExpiredUser
-            // 
-            this.lbPasswordExpiredUser.AutoSize = true;
-            this.lbPasswordExpiredUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPasswordExpiredUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lbPasswordExpiredUser.Location = new System.Drawing.Point(645, 37);
-            this.lbPasswordExpiredUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbPasswordExpiredUser.Name = "lbPasswordExpiredUser";
-            this.lbPasswordExpiredUser.Size = new System.Drawing.Size(254, 20);
-            this.lbPasswordExpiredUser.TabIndex = 19;
-            this.lbPasswordExpiredUser.Text = "* End User Must Sign on Both PCs";
-            this.lbPasswordExpiredUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // dataMigration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,6 +251,6 @@
         private System.Windows.Forms.TextBox txtDataMigrationUserId;
         private System.Windows.Forms.ComboBox comboxDataMigration;
         private System.Windows.Forms.Label lbDataMigrationDropBox;
-        private System.Windows.Forms.Label lbPasswordExpiredUser;
+        private System.Windows.Forms.Label lbDataMigration;
     }
 }

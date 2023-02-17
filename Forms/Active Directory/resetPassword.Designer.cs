@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.pnResetPasswordMain = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lbResetPasswordMain = new System.Windows.Forms.Label();
             this.btnResetPasswordOK = new System.Windows.Forms.Button();
             this.txtResetPassword = new System.Windows.Forms.TextBox();
             this.pnResetPasswordTop = new System.Windows.Forms.Panel();
             this.lbResetPasswordTop = new System.Windows.Forms.Label();
             this.rtxtResetPassword = new System.Windows.Forms.RichTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.pnResetPasswordMain.SuspendLayout();
             this.pnResetPasswordTop.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +57,31 @@
             this.pnResetPasswordMain.Name = "pnResetPasswordMain";
             this.pnResetPasswordMain.Size = new System.Drawing.Size(901, 680);
             this.pnResetPasswordMain.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.label2.Location = new System.Drawing.Point(227, 40);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 20);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Search Example:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.label1.Location = new System.Drawing.Point(228, 62);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "NTID Only";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbResetPasswordMain
             // 
@@ -117,7 +142,7 @@
             // rtxtResetPassword
             // 
             this.rtxtResetPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
-            this.rtxtResetPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtResetPassword.Font = new System.Drawing.Font("Courier New", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtResetPassword.ForeColor = System.Drawing.Color.White;
             this.rtxtResetPassword.Location = new System.Drawing.Point(22, 88);
             this.rtxtResetPassword.Margin = new System.Windows.Forms.Padding(2);
@@ -125,31 +150,6 @@
             this.rtxtResetPassword.Size = new System.Drawing.Size(856, 524);
             this.rtxtResetPassword.TabIndex = 1;
             this.rtxtResetPassword.Text = "";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label2.Location = new System.Drawing.Point(227, 40);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Search Example:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(228, 62);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(616, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "NTID /  Lastname, Firstname / Firstname.Lastname / Firstname.Lastname@ineos.com";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // resetPassword
             // 

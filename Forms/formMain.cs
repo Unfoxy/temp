@@ -173,12 +173,12 @@ namespace desktopDashboard___Y_Lee.Forms
 
         private void btnResetpassword_Click(object sender, EventArgs e)
         {
-            //var myForm = new resetPassword();
-            //myForm.TopLevel = false;
-            //myForm.AutoScroll = true;
-            //this.pnMain.Controls.Add(myForm);
-            //myForm.BringToFront();
-            //myForm.Show();
+            var myForm = new resetPassword();
+            myForm.TopLevel = false;
+            myForm.AutoScroll = true;
+            this.pnMain.Controls.Add(myForm);
+            myForm.BringToFront();
+            myForm.Show();
         }
 
         private void btnCreateUser_Click(object sender, EventArgs e)
