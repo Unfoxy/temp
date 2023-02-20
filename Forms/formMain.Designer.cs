@@ -459,9 +459,9 @@
             this.lbMainTop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(156)))), ((int)(((byte)(149)))));
             this.lbMainTop.Location = new System.Drawing.Point(3, 2);
             this.lbMainTop.Name = "lbMainTop";
-            this.lbMainTop.Size = new System.Drawing.Size(291, 25);
+            this.lbMainTop.Size = new System.Drawing.Size(274, 25);
             this.lbMainTop.TabIndex = 0;
-            this.lbMainTop.Text = "Desktop Dashboard v1.0.0";
+            this.lbMainTop.Text = "Desktop Dashboard Beta";
             // 
             // pbExit
             // 

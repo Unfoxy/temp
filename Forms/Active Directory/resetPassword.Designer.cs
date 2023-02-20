@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnResetPasswordMain = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbResetPassword1 = new System.Windows.Forms.Label();
+            this.lbResetPassword2 = new System.Windows.Forms.Label();
             this.lbResetPasswordMain = new System.Windows.Forms.Label();
             this.btnResetPasswordOK = new System.Windows.Forms.Button();
             this.txtResetPassword = new System.Windows.Forms.TextBox();
@@ -44,8 +44,8 @@
             // pnResetPasswordMain
             // 
             this.pnResetPasswordMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.pnResetPasswordMain.Controls.Add(this.label2);
-            this.pnResetPasswordMain.Controls.Add(this.label1);
+            this.pnResetPasswordMain.Controls.Add(this.lbResetPassword1);
+            this.pnResetPasswordMain.Controls.Add(this.lbResetPassword2);
             this.pnResetPasswordMain.Controls.Add(this.lbResetPasswordMain);
             this.pnResetPasswordMain.Controls.Add(this.btnResetPasswordOK);
             this.pnResetPasswordMain.Controls.Add(this.txtResetPassword);
@@ -58,30 +58,30 @@
             this.pnResetPasswordMain.Size = new System.Drawing.Size(901, 680);
             this.pnResetPasswordMain.TabIndex = 5;
             // 
-            // label2
+            // lbResetPassword1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label2.Location = new System.Drawing.Point(227, 40);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Search Example:";
+            this.lbResetPassword1.AutoSize = true;
+            this.lbResetPassword1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbResetPassword1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lbResetPassword1.Location = new System.Drawing.Point(227, 40);
+            this.lbResetPassword1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbResetPassword1.Name = "lbResetPassword1";
+            this.lbResetPassword1.Size = new System.Drawing.Size(129, 20);
+            this.lbResetPassword1.TabIndex = 10;
+            this.lbResetPassword1.Text = "Search Example:";
             // 
-            // label1
+            // lbResetPassword2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(228, 62);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 20);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "NTID Only";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbResetPassword2.AutoSize = true;
+            this.lbResetPassword2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbResetPassword2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lbResetPassword2.Location = new System.Drawing.Point(228, 62);
+            this.lbResetPassword2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbResetPassword2.Name = "lbResetPassword2";
+            this.lbResetPassword2.Size = new System.Drawing.Size(81, 20);
+            this.lbResetPassword2.TabIndex = 9;
+            this.lbResetPassword2.Text = "NTID Only";
+            this.lbResetPassword2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbResetPasswordMain
             // 
@@ -177,7 +177,7 @@
         private System.Windows.Forms.Panel pnResetPasswordTop;
         private System.Windows.Forms.Label lbResetPasswordTop;
         private System.Windows.Forms.RichTextBox rtxtResetPassword;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbResetPassword1;
+        private System.Windows.Forms.Label lbResetPassword2;
     }
 }
