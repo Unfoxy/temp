@@ -16,7 +16,6 @@ namespace desktopDashboard___Y_Lee.Forms
         {
             InitializeComponent();
         }
-
         private void btnResetPasswordOK_Click(object sender, EventArgs e)
         {
             string username = txtResetPassword.Text;
@@ -28,7 +27,7 @@ namespace desktopDashboard___Y_Lee.Forms
                                                 + "\nUsername: '" + username.ToUpper() + "' is Incorrect";
                 else
                 {
-                    string answer = MessageBox.Show("Please Confirm again "
+                    string answer = MessageBox.Show("Please Confirm Again "
                                                 + "\nUser ID: " + usernameAD[2]
                                                 + "\nUser name: " + usernameAD[0],
                                                 "Desktop Dashboard", MessageBoxButtons.YesNo, MessageBoxIcon.Warning).ToString();
@@ -39,7 +38,8 @@ namespace desktopDashboard___Y_Lee.Forms
                         rtxtResetPassword.Text = "Passowrd Reset Completed\n"
                                             + "\nUser ID      : " + usernameAD[2] 
                                             + "\nUser name    : " + usernameAD[0]
-                                            + "\nNew Password : 'Ineos2023'";
+                                            + "\nNew Password : 'Ineos2023'"
+                                            + "\n\n User must change password at next logon.";
                     }
                     else
                         rtxtResetPassword.Text = "Password Reset Cancelled";

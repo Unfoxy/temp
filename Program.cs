@@ -71,12 +71,11 @@ namespace consoleTesting
                 ldapConnection.CommitChanges();
                 //childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
                 //childEntry.CommitChanges();
-                Console.WriteLine("Creation Success, ");
+                Console.WriteLine("Creation Success");
                 Console.WriteLine("Press any key to copy membership");
                 Console.ReadLine();
 
                 //---------------------------------------------------------Duplicate Membership-------------------------------------------------------
-
                 PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=Users,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
 
                 UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, "yxl13153");
@@ -85,16 +84,21 @@ namespace consoleTesting
                 if (sourceUser != null && destinationUser != null)
                 {
                     var sourceGroups = sourceUser.GetGroups();
-
                     var destinationGroups = destinationUser.GetGroups();
 
                     foreach (Principal sourceGroup in sourceGroups)
                     {
                         if (!destinationGroups.Contains(sourceGroup))
                         {
+                            
                             GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
                             destinationGroup.Members.Add(destinationUser);
-                            destinationGroup.Save();
+                            if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + "," + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
+                            {
+                                destinationGroup.Dispose();
+                            }
+                            else
+                                destinationGroup.Save();
                         }
                     }
                 }

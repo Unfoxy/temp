@@ -15,7 +15,7 @@ namespace desktopDashboard___Y_Lee
     {
         public static void resetPassword(string username)
         {
-            //PrincipalContext context = new PrincipalContext(ContextType.Domain);
+            //PrincipalContext context = new PrincipalContext(ContextType.Domain);                                      //It works either way. Leaving here to be referenced for createUser.
             //UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, username);
             ////user.Enabled = true;            //Enable Account if it is disabled - Not Working right now
             //user.SetPassword("Ineos2023");
@@ -136,7 +136,7 @@ namespace desktopDashboard___Y_Lee
 
             try
             {
-                string[] requiredProperties = new string[] { "cn", "sAMAccountName", "mail" };      //Name, NTID from AD Attributes
+                string[] requiredProperties = new string[] { "cn", "sAMAccountName", "mail" };      //Name, NTID, Email from AD Attributes
 
                 foreach (String property in requiredProperties)
                     search.PropertiesToLoad.Add(property);
@@ -145,7 +145,7 @@ namespace desktopDashboard___Y_Lee
 
                 string[] name = new string[1000];       //Max number for the output
                 string[] ntid = new string[1000];       //Max number for the output
-                string[] email = new string[1000];       //Max number for the output
+                string[] email = new string[1000];      //Max number for the output
                 int count = 0;
                 foreach (SearchResult userResults in result)
                 {
@@ -338,7 +338,7 @@ namespace desktopDashboard___Y_Lee
                     if(!(File.Exists(edge[0, i])))
                     {
                         Array.Clear(edge, i, 1);
-                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which one is failed to transfer
+                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which file is failed to transfer
                     }
                     else
                         File.Copy(edge[0, i], edge[1, i], true);        //Transfer success will return a null to a string array
@@ -354,7 +354,7 @@ namespace desktopDashboard___Y_Lee
                     if (!(File.Exists(chrome[0, i])))
                     {
                         Array.Clear(chrome, i, 1);
-                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which one is failed to transfer
+                        result[0, i] = (i+1).ToString();                //Transfer fail will return a string number in a string array to indicate which file is failed to transfer
                     }
                     else
                         File.Copy(chrome[0, i], chrome[1, i], true);    //Transfer success will return a null to a string array
@@ -451,51 +451,5 @@ namespace desktopDashboard___Y_Lee
             else
                 return null;
         }
-        //public static void createUser()
-        //{
-        //    try
-        //    {
-        //        PrincipalContext pricipalContext = null;
-        //        pricipalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
-        //        //Sometimes we need to connect to AD using service/admin account credentials, in that case the above line of code will be as below
-        //        //pricipalContext = new PrincipalContext(ContextType.Domain, "yourdomain.com", "OU=TestOU,DC=yourdomain,DC=com","YourAdminUser","YourAdminPassword");
-        //        UserPrincipal up = new UserPrincipal(pricipalContext);
-        //        up.SamAccountName = "yxl13153";
-        //        up.DisplayName = "Test User";
-        //        up.EmailAddress = "test@ineos.com";
-        //        up.GivenName = "dump";
-        //        up.Name = "Test User";
-        //        up.Description = "User Created for testing";
-        //        up.Enabled = true;
-        //        up.SetPassword("Ineos2023");
-        //        up.Save();
-        //        MessageBox.Show("User Created");
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-
-        //    try
-        //    {
-        //        DirectoryEntry directoryEntry = new DirectoryEntry("");
-        //        directoryEntry.Path = "LDAP://OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-        //        directoryEntry.AuthenticationType = AuthenticationTypes.Secure;
-
-
-        //        DirectoryEntry childEntry = directoryEntry.Children.Add("CN=TestUser", "user");
-        //        childEntry.Properties["samAccountName"].Value = "test12345";
-        //        childEntry.Properties["mail"].Value = "test12345@ineos.com";
-        //        childEntry.CommitChanges();
-        //        directoryEntry.CommitChanges();
-        //        childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
-        //        childEntry.CommitChanges();
-        //        MessageBox.Show("User Created");
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
     }
 }

@@ -20,7 +20,6 @@ namespace desktopDashboard___Y_Lee.Forms
         {
             InitializeComponent();
         }
-
         private void btnDataMigrationOK_Click(object sender, EventArgs e)
         {
             string newPc = txtDataMigrationNewPc.Text;
@@ -36,11 +35,13 @@ namespace desktopDashboard___Y_Lee.Forms
                 else
                 {
                     if (item == "")
+                    {
                         rtxtDataMigration.Text = "Please Select Object\n"
                                                 + "\n1. Edge Bookmarks"
                                                 + "\n2. Chrome Bookmarks"
                                                 + "\n3. Outlook Signatures"
                                                 + "\n4. Quick Access";
+                    }
                     else
                     {
                         string answer = MessageBox.Show("Please Confirm Again "
@@ -105,7 +106,7 @@ namespace desktopDashboard___Y_Lee.Forms
                                         if (result == true)
                                             rtxtDataMigration.Text = item + " Transfer Done";
                                         else
-                                            rtxtDataMigration.Text = "Old PC '" + oldPc + "' doesn't have Signatures";
+                                            rtxtDataMigration.Text = "Old PC '" + oldPc + "' doesn't have Signatures";  //Windows has quick access path as default while outlook signatures not
                                     }
                                 }
                                 else

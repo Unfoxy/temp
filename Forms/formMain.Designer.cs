@@ -41,7 +41,6 @@
             this.pnDrUtilitytools = new System.Windows.Forms.Panel();
             this.btnDatamigration = new System.Windows.Forms.Button();
             this.btnPingPc = new System.Windows.Forms.Button();
-            this.btnLoopupHostname = new System.Windows.Forms.Button();
             this.btnLookupUser = new System.Windows.Forms.Button();
             this.btnUtilitytools = new System.Windows.Forms.Button();
             this.pnDrDashboard = new System.Windows.Forms.Panel();
@@ -145,7 +144,7 @@
             this.pnDrTroubleshootingtools.Controls.Add(this.btnRemoteRegistryEdit);
             this.pnDrTroubleshootingtools.Controls.Add(this.btnTroubleshootingtools);
             this.pnDrTroubleshootingtools.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnDrTroubleshootingtools.Location = new System.Drawing.Point(0, 425);
+            this.pnDrTroubleshootingtools.Location = new System.Drawing.Point(0, 400);
             this.pnDrTroubleshootingtools.Margin = new System.Windows.Forms.Padding(0);
             this.pnDrTroubleshootingtools.MaximumSize = new System.Drawing.Size(279, 75);
             this.pnDrTroubleshootingtools.MinimumSize = new System.Drawing.Size(279, 25);
@@ -196,7 +195,7 @@
             this.pnDrActivedirectory.Controls.Add(this.btnResetpassword);
             this.pnDrActivedirectory.Controls.Add(this.btnActivedirectory);
             this.pnDrActivedirectory.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnDrActivedirectory.Location = new System.Drawing.Point(0, 300);
+            this.pnDrActivedirectory.Location = new System.Drawing.Point(0, 275);
             this.pnDrActivedirectory.Margin = new System.Windows.Forms.Padding(0);
             this.pnDrActivedirectory.MaximumSize = new System.Drawing.Size(279, 125);
             this.pnDrActivedirectory.MinimumSize = new System.Drawing.Size(279, 25);
@@ -218,7 +217,7 @@
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(279, 25);
             this.btnDeleteUser.TabIndex = 19;
-            this.btnDeleteUser.Text = "Delete User - Not Working Yet";
+            this.btnDeleteUser.Text = "Delete User - Not Available";
             this.btnDeleteUser.UseVisualStyleBackColor = false;
             this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
@@ -236,7 +235,7 @@
             this.btnCreateUser.Name = "btnCreateUser";
             this.btnCreateUser.Size = new System.Drawing.Size(279, 25);
             this.btnCreateUser.TabIndex = 19;
-            this.btnCreateUser.Text = "Create User - Not Working Yet";
+            this.btnCreateUser.Text = "Create User - Not Available";
             this.btnCreateUser.UseVisualStyleBackColor = false;
             this.btnCreateUser.Click += new System.EventHandler(this.btnCreateUser_Click);
             // 
@@ -280,7 +279,6 @@
             this.pnDrUtilitytools.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(78)))), ((int)(((byte)(115)))));
             this.pnDrUtilitytools.Controls.Add(this.btnDatamigration);
             this.pnDrUtilitytools.Controls.Add(this.btnPingPc);
-            this.pnDrUtilitytools.Controls.Add(this.btnLoopupHostname);
             this.pnDrUtilitytools.Controls.Add(this.btnLookupUser);
             this.pnDrUtilitytools.Controls.Add(this.btnUtilitytools);
             this.pnDrUtilitytools.Dock = System.Windows.Forms.DockStyle.Top;
@@ -289,7 +287,7 @@
             this.pnDrUtilitytools.MaximumSize = new System.Drawing.Size(279, 150);
             this.pnDrUtilitytools.MinimumSize = new System.Drawing.Size(279, 25);
             this.pnDrUtilitytools.Name = "pnDrUtilitytools";
-            this.pnDrUtilitytools.Size = new System.Drawing.Size(279, 150);
+            this.pnDrUtilitytools.Size = new System.Drawing.Size(279, 125);
             this.pnDrUtilitytools.TabIndex = 17;
             // 
             // btnDatamigration
@@ -301,7 +299,7 @@
             this.btnDatamigration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDatamigration.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDatamigration.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnDatamigration.Location = new System.Drawing.Point(0, 125);
+            this.btnDatamigration.Location = new System.Drawing.Point(0, 100);
             this.btnDatamigration.Margin = new System.Windows.Forms.Padding(0);
             this.btnDatamigration.Name = "btnDatamigration";
             this.btnDatamigration.Size = new System.Drawing.Size(279, 25);
@@ -319,7 +317,7 @@
             this.btnPingPc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPingPc.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPingPc.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnPingPc.Location = new System.Drawing.Point(0, 100);
+            this.btnPingPc.Location = new System.Drawing.Point(0, 75);
             this.btnPingPc.Margin = new System.Windows.Forms.Padding(0);
             this.btnPingPc.Name = "btnPingPc";
             this.btnPingPc.Size = new System.Drawing.Size(279, 25);
@@ -327,24 +325,6 @@
             this.btnPingPc.Text = "Ping PC";
             this.btnPingPc.UseVisualStyleBackColor = false;
             this.btnPingPc.Click += new System.EventHandler(this.btnPingPc_Click);
-            // 
-            // btnLoopupHostname
-            // 
-            this.btnLoopupHostname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(78)))), ((int)(((byte)(115)))));
-            this.btnLoopupHostname.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLoopupHostname.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.btnLoopupHostname.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnLoopupHostname.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoopupHostname.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoopupHostname.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnLoopupHostname.Location = new System.Drawing.Point(0, 75);
-            this.btnLoopupHostname.Margin = new System.Windows.Forms.Padding(0);
-            this.btnLoopupHostname.Name = "btnLoopupHostname";
-            this.btnLoopupHostname.Size = new System.Drawing.Size(279, 25);
-            this.btnLoopupHostname.TabIndex = 15;
-            this.btnLoopupHostname.Text = "Look Up Hostname - Not Working Yet";
-            this.btnLoopupHostname.UseVisualStyleBackColor = false;
-            this.btnLoopupHostname.Click += new System.EventHandler(this.btnLoopupHostname_Click);
             // 
             // btnLookupUser
             // 
@@ -1248,7 +1228,6 @@
         private System.Windows.Forms.Panel pnDrUtilitytools;
         private System.Windows.Forms.Button btnDatamigration;
         private System.Windows.Forms.Button btnPingPc;
-        private System.Windows.Forms.Button btnLoopupHostname;
         private System.Windows.Forms.Button btnLookupUser;
         private System.Windows.Forms.Button btnUtilitytools;
         private System.Windows.Forms.Panel pnDrDashboard;
