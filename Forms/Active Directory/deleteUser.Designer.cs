@@ -76,7 +76,6 @@
             this.btnDeleteUserOK.TabIndex = 5;
             this.btnDeleteUserOK.Text = "OK";
             this.btnDeleteUserOK.UseVisualStyleBackColor = false;
-            this.btnDeleteUserOK.Click += new System.EventHandler(this.btnDeleteUserOK_Click);
             // 
             // txtDeleteUser
             // 

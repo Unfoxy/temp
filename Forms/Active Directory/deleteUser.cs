@@ -16,10 +16,5 @@ namespace desktopDashboard___Y_Lee.Forms
         {
             InitializeComponent();
         }
-
-        private void btnDeleteUserOK_Click(object sender, EventArgs e)
-        {
-            rtxtDeleteUser.Text = "nope";
-        }
     }
 }

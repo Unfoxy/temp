@@ -19,3 +19,4 @@ C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\bin\Debug\desktopDashboard 
 C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\bin\Debug\desktopDashboard - Y Lee.pdb
 C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.exe
 C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard - Y Lee.pdb
+C:\Users\yxl13153\Documents\desktopDashboard - Y Lee\obj\Debug\desktopDashboard___Y_Lee.Forms.createUser.resources

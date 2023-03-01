@@ -13,6 +13,86 @@ namespace desktopDashboard___Y_Lee
 {
     public class Functions
     {
+        public static Tuple<string[], int> disposeMemberships(string[] disposeMemberships, int count, string addDispose)
+        {
+            disposeMemberships[count] = addDispose;
+            count++;
+
+
+            return Tuple.Create(disposeMemberships, count);
+        }
+        public static Tuple<string[], int> removeMembership(string[] currentMemberships, int count, string disposeMembership)
+        {
+            currentMemberships = currentMemberships.Where(w => w != disposeMembership).ToArray();
+            count--;
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    if (currentMemberships[i] == disposeMembership)
+            //        currentMemberships[i] = null;
+            //}
+            //count--;
+            return Tuple.Create(currentMemberships, count);
+        }
+
+        public static Tuple<string[], int> displayMembership(string disposeMembership, string user)
+        {
+            PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
+            UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, user);
+
+
+            if (sourceUser != null)
+            {
+                var sourceGroups = sourceUser.GetGroups();
+
+                int count = 0;
+                string[] membership = new string[1000];
+                foreach (Principal sourceGroup in sourceGroups)
+                {
+                    if (sourceGroup.Name != disposeMembership)
+                    {
+                        membership[count] = sourceGroup.Name;
+                        count++;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                return Tuple.Create(membership, count);
+            }
+            else
+                return null;
+        }
+        //public static string[] displayMembership(string disposeMembership, string user)
+        //{
+        //    PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
+        //    UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, user);
+
+
+        //    if (sourceUser != null)
+        //    {
+        //        var sourceGroups = sourceUser.GetGroups();
+
+        //        int count = 0;
+        //        string[] membership = new string[1000];
+        //        foreach (Principal sourceGroup in sourceGroups)
+        //        {
+        //            if (sourceGroup.Name != disposeMembership)
+        //            {
+        //                membership[count] = sourceGroup.Name;
+        //                count++;
+        //            }
+        //            else
+        //            {
+        //                count++;
+        //            }    
+        //        }
+        //        return membership;
+        //    }
+        //    else
+        //        return null;
+        //}
         public static void resetPassword(string username)
         {
             //PrincipalContext context = new PrincipalContext(ContextType.Domain);                                      //It works either way. Leaving here to be referenced for createUser.

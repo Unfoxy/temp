@@ -183,12 +183,12 @@ namespace desktopDashboard___Y_Lee.Forms
 
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
-            //var myForm = new deactivatedUserMVW();
-            //myForm.TopLevel = false;
-            //myForm.AutoScroll = true;
-            //this.pnMain.Controls.Add(myForm);
-            //myForm.BringToFront();
-            //myForm.Show();
+            var myForm = new createUser();
+            myForm.TopLevel = false;
+            myForm.AutoScroll = true;
+            this.pnMain.Controls.Add(myForm);
+            myForm.BringToFront();
+            myForm.Show();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
