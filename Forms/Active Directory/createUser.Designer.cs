@@ -224,6 +224,7 @@
             this.btnCreateUserCreateAccount.TabIndex = 27;
             this.btnCreateUserCreateAccount.Text = "Create Account";
             this.btnCreateUserCreateAccount.UseVisualStyleBackColor = true;
+            this.btnCreateUserCreateAccount.Click += new System.EventHandler(this.btnCreateUserCreateAccount_Click);
             // 
             // txtCreateUserCopyMembership
             // 

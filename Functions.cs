@@ -13,11 +13,83 @@ namespace desktopDashboard___Y_Lee
 {
     public class Functions
     {
+        public static Tuple<string[], int> copyMembership(string[] disposeMemberships, int disposeMembershipsCount, string sourceNTID, string destNTID)
+        {
+            string[] adminMemberships = new string[1000];
+            int adminMembershipsCount = 0;
+
+            PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"); //change Path for each sites
+            UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, sourceNTID); //sourceNTID); //"yxl13153"
+            UserPrincipal destinationUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, destNTID);
+
+            if (sourceUser != null && destinationUser != null)
+            {
+                var sourceGroups = sourceUser.GetGroups();
+                var destinationGroups = destinationUser.GetGroups();
+
+                foreach (Principal sourceGroup in sourceGroups)
+                {
+                    if (!destinationGroups.Contains(sourceGroup))                                           //Don't copy duplicated(Domain User is assigned as default)
+                    {
+                        GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
+                        destinationGroup.Members.Add(destinationUser);
+                        for (int i = 0; i < disposeMembershipsCount; i++)                                       //Filter disposed Membership
+                        {
+                            if (destinationGroup.Name == disposeMemberships[i])
+                                destinationGroup.Members.Remove(destinationUser);
+                        }
+
+                        if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + ","       //Filter Admin Memberships
+                            + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
+                        {
+                            adminMemberships[adminMembershipsCount] = destinationGroup.Name;
+                            adminMembershipsCount++;
+                            destinationGroup.Members.Remove(destinationUser);
+                        }
+                        else
+                            destinationGroup.Save();
+                    }
+                }
+            }
+            return Tuple.Create(adminMemberships, adminMembershipsCount);
+        }
+        //public static void copyMembership(string[] disposeMemberships, int disposeMembershipsCount, string sourceNTID, string destNTID)
+        //{
+        //    PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"); //change Path for each sites
+        //    UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, sourceNTID); //sourceNTID); //"yxl13153"
+        //    UserPrincipal destinationUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, destNTID);
+
+        //    if (sourceUser != null && destinationUser != null)
+        //    {
+        //        var sourceGroups = sourceUser.GetGroups();
+        //        var destinationGroups = destinationUser.GetGroups();
+
+        //        foreach (Principal sourceGroup in sourceGroups)
+        //        {
+        //            if (!destinationGroups.Contains(sourceGroup))                                           //Don't copy duplicated(Domain User is assigned as default)
+        //            {
+        //                GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
+        //                destinationGroup.Members.Add(destinationUser);
+        //                for (int i=0; i<disposeMembershipsCount; i++)                                       //Filter disposed Membership
+        //                {
+        //                    if (destinationGroup.Name == disposeMemberships[i])
+        //                        destinationGroup.Members.Remove(destinationUser);
+        //                }
+
+
+        //                if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + ","       //Filter Admin Memberships
+        //                    + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
+        //                    destinationGroup.Members.Remove(destinationUser);
+        //                else
+        //                    destinationGroup.Save();
+        //            }
+        //        }
+        //    }
+        //}
         public static Tuple<string[], int> disposeMemberships(string[] disposeMemberships, int count, string addDispose)
         {
             disposeMemberships[count] = addDispose;
             count++;
-
 
             return Tuple.Create(disposeMemberships, count);
         }
@@ -26,16 +98,10 @@ namespace desktopDashboard___Y_Lee
             currentMemberships = currentMemberships.Where(w => w != disposeMembership).ToArray();
             count--;
 
-            //for (int i = 0; i < count; i++)
-            //{
-            //    if (currentMemberships[i] == disposeMembership)
-            //        currentMemberships[i] = null;
-            //}
-            //count--;
             return Tuple.Create(currentMemberships, count);
         }
 
-        public static Tuple<string[], int> displayMembership(string disposeMembership, string user)
+        public static Tuple<string[], int> displayMembership(string user)
         {
             PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
             UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, user);
@@ -49,50 +115,14 @@ namespace desktopDashboard___Y_Lee
                 string[] membership = new string[1000];
                 foreach (Principal sourceGroup in sourceGroups)
                 {
-                    if (sourceGroup.Name != disposeMembership)
-                    {
-                        membership[count] = sourceGroup.Name;
-                        count++;
-                    }
-                    else
-                    {
-                        count++;
-                    }
+                    membership[count] = sourceGroup.Name;
+                    count++;
                 }
                 return Tuple.Create(membership, count);
             }
             else
                 return null;
         }
-        //public static string[] displayMembership(string disposeMembership, string user)
-        //{
-        //    PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
-        //    UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, user);
-
-
-        //    if (sourceUser != null)
-        //    {
-        //        var sourceGroups = sourceUser.GetGroups();
-
-        //        int count = 0;
-        //        string[] membership = new string[1000];
-        //        foreach (Principal sourceGroup in sourceGroups)
-        //        {
-        //            if (sourceGroup.Name != disposeMembership)
-        //            {
-        //                membership[count] = sourceGroup.Name;
-        //                count++;
-        //            }
-        //            else
-        //            {
-        //                count++;
-        //            }    
-        //        }
-        //        return membership;
-        //    }
-        //    else
-        //        return null;
-        //}
         public static void resetPassword(string username)
         {
             //PrincipalContext context = new PrincipalContext(ContextType.Domain);                                      //It works either way. Leaving here to be referenced for createUser.

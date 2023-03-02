@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
 using System.CodeDom.Compiler;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace desktopDashboard___Y_Lee.Forms
 {
@@ -21,18 +22,33 @@ namespace desktopDashboard___Y_Lee.Forms
             InitializeComponent();
             txtCreateUserContractor.BackColor = Color.FromArgb(220, 220, 220);
             txtCreateUserContractor.BackColor = Color.FromArgb(220, 220, 220);
-            disposeMembershipCount = 0;
-            disposeTesting = new string[1000];
+            disposeMembershipsCount = 0;
+            disposeMembershipsGroup = new string[1000];
+        }
+        private void checkBoxEmployee_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxCreateUserEmployee.Checked)
+            {
+                checkBoxCreateUserContractor.Checked = false;
+                checkBoxCreateUserExternal.Checked = false;
+            }
         }
 
+        private void checkBoxExternal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxCreateUserExternal.Checked)
+            {
+                checkBoxCreateUserEmployee.Checked = false;
+                checkBoxCreateUserContractor.Checked = false;
+            }
+        }
         private void checkBoxContractor_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBoxCreateUserExternal.Checked = !checkBoxCreateUserContractor.Checked;
-            //checkBoxCreateUserEmployee.Checked = !checkBoxCreateUserContractor.Checked;
-
-            //checkBoxCreateUserContractor.Checked = !checkBoxCreateUserContractor.Checked;
-            //checkBoxCreateUserContractor.Checked = !checkBoxCreateUserExternal.Checked;
-
+            if (checkBoxCreateUserContractor.Checked)
+            {
+                checkBoxCreateUserEmployee.Checked = false;
+                checkBoxCreateUserExternal.Checked = false;
+            }
             if (checkBoxCreateUserContractor.CheckState == CheckState.Unchecked)
             {
                 txtCreateUserContractor.Enabled = false;
@@ -58,126 +74,107 @@ namespace desktopDashboard___Y_Lee.Forms
                 comboBoxCreateUserO365License.BackColor = Color.FromArgb(32, 33, 36);
             }
         }
-
-        private void checkBoxEmployee_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBoxCreateUserExternal.Checked = !checkBoxCreateUserEmployee.Checked;
-            checkBoxCreateUserContractor.Checked = !checkBoxCreateUserEmployee.Checked;
-        }
-
-        private void checkBoxExternal_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBoxCreateUserEmployee.Checked = !checkBoxCreateUserExternal.Checked;
-            checkBoxCreateUserContractor.Checked = !checkBoxCreateUserExternal.Checked;
-        }
-
+        string firstname { get; set; }
+        string firstInitial { get; set; }
+        string lastname { get; set; }
+        string lastInitial { get; set; }
+        string middleName { get; set; }
+        string middleInitial { get; set; }
+        string email { get; set; }
+        string extensionAttribute1 { get; set; }
+        string extensionAttribute9 { get; set; }
+        string ntid { get; set; }
         private void btnCreateUserGenerateNTID_Click(object sender, EventArgs e)
         {
-            string firstname = txtCreateUserFirstname.Text;
-            string lastname = txtCreateUserLastname.Text;
-            string middleName = txtCreatUserMiddleInitial.Text;
-            string email;
-            string extensionAttribute9;
-            string extensionAttribute1;
-            string ntid;
+            firstname = txtCreateUserFirstname.Text;
+            firstname = firstname.ToLower();
+            firstname = char.ToUpper(firstname[0]) + firstname.Substring(1);
+            firstInitial = firstname.Substring(0, 1);
 
+            lastname = txtCreateUserLastname.Text;
+            lastname = lastname.ToLower();
+            lastname = char.ToUpper(lastname[0]) + lastname.Substring(1);
+            lastInitial = lastname.Substring(0, 1);
+
+            middleName = txtCreatUserMiddleInitial.Text;
+            middleName = middleName.ToUpper();
             if (middleName == null)
-                middleName = "x";                                    
+                middleName = "X";
+            middleInitial = middleName.Substring(0, 1);
 
             Random rnd = new Random();
             int num = rnd.Next(100000);
             string ntidNum = num.ToString();
-
-            string firstInitial = firstname.Substring(0, 1);
-            string middleInitial = middleName.Substring(0, 1);
-            string lastInitial = lastname.Substring(0, 1);
-            ntid = firstInitial + middleInitial + lastInitial + ntidNum.ToLower();
+            ntid = firstInitial + middleInitial + lastInitial + ntidNum;
+            ntid = ntid.ToLower();
 
             if (checkBoxCreateUserEmployee.Checked)                                             //Email
-                email = firstname + lastname + "@ineos.com";
+                email = firstname.ToLower() + "." + lastname.ToLower() + "@ineos.com";
             else if (checkBoxCreateUserExternal.Checked)
-                email = firstname + lastname + "@external.ineos.com";
+                email = firstname.ToLower() + "." + lastname.ToLower() + "@external.ineos.com";
             else if (checkBoxCreateUserContractor.Checked)
                 email = txtCreateUserContractor.Text;
+            else
+                email = "";
 
             if (checkBoxCreateUserO365MailEnabled.Checked)                                      //EA9
                 extensionAttribute9 = "IN1_IN1_" + comboBoxCreateUserO365License.Text;
 
             if (comboBoxCreateUserSiteCode != null)                                             //EA1
                 extensionAttribute1 = comboBoxCreateUserSiteCode.Text;
+            else
+                extensionAttribute1 = "";
 
-            DirectoryEntry ldapConnection = new DirectoryEntry("");
-            if (comboBoxCreateUserSiteCode.Text == "MVW")
-                ldapConnection.Path = "LDAP://OU=Users,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "BMC")
-                ldapConnection.Path = "LDAP://OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "CHO")
-                ldapConnection.Path = "LDAP://OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "LAR")
-                ldapConnection.Path = "LDAP://OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "HDC")
-                ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
-
-
-
-
-
-
-
-
+            txtCreateUserNewUserAccount.Text = ntid;
         }
-        string[] disposeTesting { get; set; }
         string disposeMembership { get; set; }
-        int disposeMembershipCount { get; set; }
-        string[] displayMemberships { get; set; }
-        int membershipsCount { get; set; }
+        string[] disposeMembershipsGroup { get; set; }
+        int disposeMembershipsCount { get; set; }
+        string[] copyMemberships { get; set; }
+        int copyMembershipsCount { get; set; }
         private void btnCreateUserMembershipsDisplay_Click(object sender, EventArgs e)
         {
-            string ntid = "yxl13153";
-            (displayMemberships, membershipsCount) = Functions.displayMembership(null, ntid);
+            string ntid = txtCreateUserCopyMembership.Text;//"yxl13153";
+            (copyMemberships, copyMembershipsCount) = Functions.displayMembership(ntid);
 
-            for (int i=0; i < membershipsCount; i++)
+            rtxtCreateUserMemberships.AppendText("Current Memberships");
+            for (int i=0; i < copyMembershipsCount; i++)
             {
                 if (i >= 9)
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + displayMemberships[i]);
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + copyMemberships[i]);
                 else
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + displayMemberships[i]);
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + copyMemberships[i]);
             }
         }
         public void btnCreateUserMembershipsRemove_Click(object sender, EventArgs e)
         {
-            //string ntid = "yxl13153";
-            //var (displayMemberships, membershipsCount) = Functions.displayMembership(null, ntid);
-            (displayMemberships, membershipsCount) = Functions.removeMembership(displayMemberships, membershipsCount, disposeMembership);
+            (copyMemberships, copyMembershipsCount) = Functions.removeMembership(copyMemberships, copyMembershipsCount, disposeMembership);
             
-            (disposeTesting, disposeMembershipCount) = Functions.disposeMemberships(disposeTesting, disposeMembershipCount, disposeMembership);
-
-            //testing[disposeMembershipCount] = disposeMembership;
-            //disposeMembershipCount++;
-
+            (disposeMembershipsGroup, disposeMembershipsCount) = Functions.disposeMemberships(disposeMembershipsGroup, disposeMembershipsCount, disposeMembership);
 
             rtxtCreateUserMemberships.Clear();
             rtxtCreateUserMemberships.Focus();
 
-
-            //rtxtCreateUserMemberships.SelectionColor = Color.FromArgb(255, 255, 128) ;
-            //rtxtCreateUserMemberships.AppendText(disposeMembership + " is removed.");
-            //rtxtCreateUserMemberships.AppendText(Environment.NewLine);
-
             rtxtCreateUserMemberships.SelectionColor = Color.FromArgb(255, 255, 128);
             rtxtCreateUserMemberships.AppendText("Removed Memberships");
-            for (int i=0; i < disposeMembershipCount; i++)
-                rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i+1) + ". " + disposeTesting[i]);
-            
-            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
-
-            for (int i = 0; i < membershipsCount; i++)
+            for (int i=0; i < disposeMembershipsCount; i++)
             {
                 if (i >= 9)
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + displayMemberships[i]);
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + disposeMembershipsGroup[i]);
                 else
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + displayMemberships[i]);
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + disposeMembershipsGroup[i]);
+            }
+            
+            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
+            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
+
+            rtxtCreateUserMemberships.AppendText("Copied Memberships");
+            for (int i = 0; i < copyMembershipsCount; i++)
+            {
+                if (i >= 9)
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + copyMemberships[i]);
+                else
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + copyMemberships[i]);
             }
 
         }
@@ -194,61 +191,69 @@ namespace desktopDashboard___Y_Lee.Forms
             selectedLine = selectedLine.Trim();
             disposeMembership = selectedLine.Remove(0, 4);
         }
+
+        private void btnCreateUserCreateAccount_Click(object sender, EventArgs e)
+        {
+            DirectoryEntry ldapConnection = new DirectoryEntry("");
+            if (comboBoxCreateUserSiteCode.Text == "MVW")
+                ldapConnection.Path = "LDAP://OU=Users,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            else if (comboBoxCreateUserSiteCode.Text == "BMC")
+                ldapConnection.Path = "LDAP://OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            else if (comboBoxCreateUserSiteCode.Text == "CHO")
+                ldapConnection.Path = "LDAP://OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            else if (comboBoxCreateUserSiteCode.Text == "LAR")
+                ldapConnection.Path = "LDAP://OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            else if (comboBoxCreateUserSiteCode.Text == "HDC")
+                ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
+
+            //Creation Start
+            DirectoryEntry childEntry = ldapConnection.Children.Add("CN=" + lastname + "\\" + ", " + firstname + " " + middleInitial, "user");
+            childEntry.Properties["givenName"].Value = firstname;                                                                      //First name
+            childEntry.Invoke("Put", new object[] { "Initials", middleInitial });                                                             //Initials
+            childEntry.Properties["sn"].Value = lastname;                                                                              //Last name
+            childEntry.Properties["displayName"].Value = lastname + "\\" + ", " + firstname;                                                                   //Display name
+            childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - League City. Texas" });                             //Description
+            childEntry.Properties["physicalDeliveryOfficeName"].Value = extensionAttribute1 + ": ";                                                    //Office
+            childEntry.Properties["telephoneNumber"].Value = "281-535-";                                                            //Telephone nuber
+            childEntry.Properties["mail"].Value = email;                                                                            //E-mail
+            //Address                                                                                                             //Address
+            childEntry.Properties["streetAddress"].Value = "2600 South Shore Blvd.";                                                //Street
+            childEntry.Properties["l"].Value = "League City";                                                                       //City
+            childEntry.Properties["st"].Value = "Texas";                                                                            //State/province
+            childEntry.Properties["postalCode"].Value = "77573";                                                                    //Zip/postal code
+            childEntry.Properties["c"].Value = "US";                                                                                //Country/region
+            childEntry.Properties["co"].Value = "United States";                                                                    //Country/region
+            //Account                                                                                                             //Account
+            childEntry.Properties["userPrincipalName"].Value = email;                                                //User logon name
+            childEntry.Properties["samAccountName"].Value = ntid;                                                             //User logon name (pre-Windows 2000):
+            //Profille                                                                                                              //Profille
+            childEntry.Properties["homeDirectory"].Value = "\\\\in1\\opu\\users\\" + ntid;                                         //Home folder
+            childEntry.Properties["homeDrive"].Value = "H:";                                                                        //Connect
+            //Organization                                                                                                             //Organization
+            childEntry.Properties["company"].Value = "INEOS O&P USA";                                                               //Company
+                                                                                                                                    //Attributes
+            childEntry.Properties["extensionAttribute1"].Value = extensionAttribute1;
+            childEntry.Properties["extensionAttribute10"].Value = "EMPLOYEE";
+            childEntry.Properties["extensionAttribute11"].Value = "GMAIL_SUB";
+            childEntry.Properties["extensionAttribute12"].Value = "OPUSA_O365";
+            childEntry.Properties["extensionAttribute13"].Value = "o365";                                                           //Create a prompt for ;OKTA
+            childEntry.Properties["extensionAttribute2"].Value = "OP USA";
+            childEntry.Properties["extensionAttribute9"].Value = "IN1_IN1_E3";
+            childEntry.Properties["mailNickname"].Value = firstname.ToLower() + "." + lastname.ToLower();
+
+            childEntry.CommitChanges();
+            ldapConnection.CommitChanges();
+            //childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
+            //childEntry.CommitChanges();
+            var (adminMemberships, adminMembershipsCount) = Functions.copyMembership(disposeMembershipsGroup, disposeMembershipsCount, txtCreateUserCopyMembership.Text, txtCreateUserNewUserAccount.Text);
+            MessageBox.Show("Membership Copy Fail "
+                                                             + "\n" + adminMemberships[0],
+                                   "Membership Copy Fail", MessageBoxButtons.OK, MessageBoxIcon.Warning).ToString();
+        }
     }
 }
-////display membership
-//PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
-//UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, "yxl13153");
 
-
-//if (sourceUser != null)
-//{
-//    var sourceGroups = sourceUser.GetGroups();
-
-//    int count = 0;
-//    rtxtCreateUserMemberships.AppendText("Memberships");
-//    foreach (Principal sourceGroup in sourceGroups)
-//    {
-//        rtxtCreateUserMemberships.AppendText(Environment.NewLine + (count + 1) + ". " + sourceGroup.Name);
-//        count++;
-//        string temp;
-//        temp = sourceGroup.Name;
-
-//    }
-//}
-
-
-//// Copy Membership
-//PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com");
-//UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, "yxl13153");
-////UserPrincipal destinationUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, txtCreateUserNewUserAccount.Text);
-
-//if (sourceUser != null)//&& destinationUser != null
-//{
-//    var sourceGroups = sourceUser.GetGroups();
-//    //var destinationGroups = destinationUser.GetGroups();
-//    int count = 0;
-//    rtxtCreateUserMemberships.AppendText("Memberships");
-//    foreach (Principal sourceGroup in sourceGroups)
-//    {
-//        rtxtCreateUserMemberships.AppendText(Environment.NewLine + (count + 1) + ". " + sourceGroup.Name);
-//        count++;
-//        string temp;
-//        temp = sourceGroup.Name;
-//        //if (!destinationGroups.Contains(sourceGroup))
-//        //{
-
-//        //    GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
-//        //    destinationGroup.Members.Add(destinationUser);
-//        //    if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + "," + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
-//        //    {
-//        //        destinationGroup.Dispose();
-//        //    }
-//        //    else
-//        //        destinationGroup.Save();
-//        //}
-//    }
-//}
 
 
 
