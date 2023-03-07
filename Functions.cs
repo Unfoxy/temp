@@ -53,39 +53,6 @@ namespace desktopDashboard___Y_Lee
             }
             return Tuple.Create(adminMemberships, adminMembershipsCount);
         }
-        //public static void copyMembership(string[] disposeMemberships, int disposeMembershipsCount, string sourceNTID, string destNTID)
-        //{
-        //    PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "in1.ad.innovene.com", "OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"); //change Path for each sites
-        //    UserPrincipal sourceUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, sourceNTID); //sourceNTID); //"yxl13153"
-        //    UserPrincipal destinationUser = UserPrincipal.FindByIdentity(principalContext, IdentityType.SamAccountName, destNTID);
-
-        //    if (sourceUser != null && destinationUser != null)
-        //    {
-        //        var sourceGroups = sourceUser.GetGroups();
-        //        var destinationGroups = destinationUser.GetGroups();
-
-        //        foreach (Principal sourceGroup in sourceGroups)
-        //        {
-        //            if (!destinationGroups.Contains(sourceGroup))                                           //Don't copy duplicated(Domain User is assigned as default)
-        //            {
-        //                GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
-        //                destinationGroup.Members.Add(destinationUser);
-        //                for (int i=0; i<disposeMembershipsCount; i++)                                       //Filter disposed Membership
-        //                {
-        //                    if (destinationGroup.Name == disposeMemberships[i])
-        //                        destinationGroup.Members.Remove(destinationUser);
-        //                }
-
-
-        //                if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + ","       //Filter Admin Memberships
-        //                    + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
-        //                    destinationGroup.Members.Remove(destinationUser);
-        //                else
-        //                    destinationGroup.Save();
-        //            }
-        //        }
-        //    }
-        //}
         public static Tuple<string[], int> disposeMemberships(string[] disposeMemberships, int count, string addDispose)
         {
             disposeMemberships[count] = addDispose;
