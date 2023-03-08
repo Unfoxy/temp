@@ -80,33 +80,39 @@ namespace desktopDashboard___Y_Lee.Forms
         string middleName { get; set; }
         string middleInitial { get; set; }
         string email { get; set; }
+        string ntid { get; set; }
+        string contractorCompanyName { get; set; }
+        string officeNumber { get; set; }
+        string telephoneNumber { get; set; }
+        string jobTitle { get; set; }
+        string department { get; set; }
+        string managerNTID { get; set; }
         string extensionAttribute1 { get; set; }
+        string extensionAttribute2 { get; set; }
         string extensionAttribute9 { get; set; }
         string extensionAttribute10 { get; set; }
-        string extensionAttribute2 { get; set; }
         string extensionAttribute11 { get; set; }
         string extensionAttribute12 { get; set; }
         string extensionAttribute13 { get; set; }
-        string contractorCompanyName { get; set; }
-        string officeNumber { get; set; }
-        string ntid { get; set; }
+        
+        
         private void btnCreateUserGenerateNTID_Click(object sender, EventArgs e)
         {
             //Firstname
             firstname = txtCreateUserFirstname.Text;
             firstname = firstname.ToLower();
-            firstname = char.ToUpper(firstname[0]) + firstname.Substring(1);
+            firstname = char.ToUpper(firstname[0]) + firstname.Substring(1);    //Make first letter uppercase
             firstInitial = firstname.Substring(0, 1);
             //Lastname
             lastname = txtCreateUserLastname.Text;
             lastname = lastname.ToLower();
-            lastname = char.ToUpper(lastname[0]) + lastname.Substring(1);
+            lastname = char.ToUpper(lastname[0]) + lastname.Substring(1);       //Make first letter uppercase
             lastInitial = lastname.Substring(0, 1);
             //Middle Initial
             middleName = txtCreatUserMiddleInitial.Text;
-            middleName = middleName.ToUpper();
             if (middleName == null)
                 middleName = "X";
+            middleName = middleName.ToUpper();
             middleInitial = middleName.Substring(0, 1);
             //NTID
             Random rnd = new Random();
@@ -115,16 +121,31 @@ namespace desktopDashboard___Y_Lee.Forms
             ntid = firstInitial + middleInitial + lastInitial + ntidNum;
             ntid = ntid.ToLower();
             txtCreateUserNewUserAccount.Text = ntid;
-            //Contractor Company Name
-            contractorCompanyName = txtCreateUserContractorCompany.Text;
             //Email
             if (comboBoxCreateUserUserType.Text == "Employee")
                 email = firstname.ToLower() + "." + lastname.ToLower() + "@ineos.com";
             else if (comboBoxCreateUserUserType.Text == "External")
                 email = firstname.ToLower() + "." + lastname.ToLower() + "@external.ineos.com";
-            else if (comboBoxCreateUserUserType.Text == "Contractor")
+            else if (comboBoxCreateUserUserType.Text == "Contractor" && checkBoxCreateUserO365MailEnabled.Checked)
+                email = firstname.ToLower() + "." + lastname.ToLower() + "@external.ineos.com";
+            else if (comboBoxCreateUserUserType.Text == "Contractor" && !(checkBoxCreateUserO365MailEnabled.Checked))
                 email = txtCreateUserContractorEmail.Text;
-            // EA 1, 2, 9, 10, 11, 12, 13 Need to be assigned
+            else
+                email = "";
+            //Contractor Company Name
+            contractorCompanyName = txtCreateUserContractorCompany.Text;
+            //Office Number
+            officeNumber = comboBoxCreateUserSiteCode.Text + " " + txtCreateUserOffice.Text;
+            //Telephone Number
+            telephoneNumber = txtCreateUserPhone.Text;
+            //Job Title
+            jobTitle = txtlbCreateUserPosition.Text;
+            //Department
+            department = txtCreateUserDepartment.Text;
+            //Manager
+            managerNTID = txtCreateUserSupervisor.Text;
+
+            //EA 1, 2, 9, 10, 11, 12, 13 Need to be assigned
             //EA 1, 9, 10 are combobox inputs
             if (comboBoxCreateUserSiteCode != null)                                             //EA 1
                 extensionAttribute1 = comboBoxCreateUserSiteCode.Text;
@@ -134,8 +155,8 @@ namespace desktopDashboard___Y_Lee.Forms
                 extensionAttribute9 = "IN1_IN1_" + comboBoxCreateUserO365License.Text;
             else
                 extensionAttribute9 = "";
-            if (comboBoxCreateUserSiteCode.Text != null)                                        //EA 10
-                extensionAttribute10 = comboBoxCreateUserSiteCode.Text;
+            if (comboBoxCreateUserUserType.Text != null)                                        //EA 10
+                extensionAttribute10 = comboBoxCreateUserUserType.Text;
             else
                 extensionAttribute10 = "";
             //EA 2, 11, 12 are manaul inputs
@@ -158,15 +179,15 @@ namespace desktopDashboard___Y_Lee.Forms
         private void btnCreateUserCreateAccount_Click(object sender, EventArgs e)
         {
             DirectoryEntry ldapConnection = new DirectoryEntry("");
-            if (comboBoxCreateUserSiteCode.Text == "MVW")
+            if (extensionAttribute1 == "MVW")
                 ldapConnection.Path = "LDAP://OU=Users,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "BMC")
+            else if (extensionAttribute1 == "BMC")
                 ldapConnection.Path = "LDAP://OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "CHO")
+            else if (extensionAttribute1 == "CHO")
                 ldapConnection.Path = "LDAP://OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "LAR")
+            else if (extensionAttribute1 == "LAR")
                 ldapConnection.Path = "LDAP://OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
-            else if (comboBoxCreateUserSiteCode.Text == "HDC")
+            else if (extensionAttribute1 == "HDC")
                 ldapConnection.Path = "LDAP://OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
             ldapConnection.AuthenticationType = AuthenticationTypes.Secure;
 
@@ -175,31 +196,66 @@ namespace desktopDashboard___Y_Lee.Forms
             childEntry.Properties["givenName"].Value = firstname;                                                                      //First name
             childEntry.Invoke("Put", new object[] { "Initials", middleInitial });                                                      //Initials
             childEntry.Properties["sn"].Value = lastname;                                                                              //Last name
-            if (comboBoxCreateUserUserType.Text == "Employee")                                                                         //Display name
+            if (extensionAttribute10 == "Employee")                                                                                    //Display name
                 childEntry.Properties["displayName"].Value = lastname + ", " + firstname;
-            else if(comboBoxCreateUserUserType.Text == "External" || comboBoxCreateUserUserType.Text == "Contractor")
+            else if(extensionAttribute10 == "External" || extensionAttribute10 == "Contractor")
                 childEntry.Properties["displayName"].Value = lastname + ", " + firstname + " (" + contractorCompanyName + ")";
-            if (comboBoxCreateUserSiteCode.Text == "MVW")                                                                              //Description
+            if (extensionAttribute1 == "MVW")                                                                                          //Description
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - League City. Texas" });
-            else if (comboBoxCreateUserSiteCode.Text == "BMC")
+            else if (extensionAttribute1 == "BMC")
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - LaPorte. Texas" });
-            else if (comboBoxCreateUserSiteCode.Text == "CHO")
+            else if (extensionAttribute1 == "CHO")
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - Alvin. Texas" });
-            else if (comboBoxCreateUserSiteCode.Text == "LAR")
+            else if (extensionAttribute1 == "LAR")
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - Carson. Texas" });
-            else if (comboBoxCreateUserSiteCode.Text == "HDC")
+            else if (extensionAttribute1 == "HDC")
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - Houston. Texas" });
-
-            childEntry.Properties["physicalDeliveryOfficeName"].Value = extensionAttribute1 + ": ";                                    //Office
-            childEntry.Properties["telephoneNumber"].Value = "281-535-";                                                               //Telephone nuber
+            childEntry.Properties["physicalDeliveryOfficeName"].Value = officeNumber;                                                  //Office
+            childEntry.Properties["telephoneNumber"].Value = telephoneNumber;                                                          //Telephone number
             childEntry.Properties["mail"].Value = email;                                                                               //E-mail
-            //Address                                                                                                               
-            childEntry.Properties["streetAddress"].Value = "2600 South Shore Blvd.";                                                   //Street
-            childEntry.Properties["l"].Value = "League City";                                                                          //City
-            childEntry.Properties["st"].Value = "Texas";                                                                               //State/province
-            childEntry.Properties["postalCode"].Value = "77573";                                                                       //Zip/postal code
-            childEntry.Properties["c"].Value = "US";                                                                                   //Country/region
-            childEntry.Properties["co"].Value = "United States";                                                                       //Country/region
+            //Address
+            if (extensionAttribute1 == "MVW")
+            {                                                                                                                          //MVW Address
+                childEntry.Properties["streetAddress"].Value = "2600 South Shore Blvd";                                                //Street
+                childEntry.Properties["l"].Value = "League City";                                                                      //City
+                childEntry.Properties["st"].Value = "Texas";                                                                           //State/province
+                childEntry.Properties["postalCode"].Value = "77573";                                                                   //Zip/postal code
+                childEntry.Properties["c"].Value = "US";                                                                               //Country/region
+                childEntry.Properties["co"].Value = "United States";                                                                   //Country/region
+            }
+            else if (extensionAttribute1 == "BMC")                                                                                     //BMC Address
+            {
+                childEntry.Properties["streetAddress"].Value = "1230 Independence Pkwy";                                               
+                childEntry.Properties["l"].Value = "La Porte";                                                                         
+                childEntry.Properties["st"].Value = "Texas";                                                                           
+                childEntry.Properties["postalCode"].Value = "77571";                                                                   
+                childEntry.Properties["c"].Value = "US";                                                                               
+                childEntry.Properties["co"].Value = "United States";                                                                   
+            }
+            else if (extensionAttribute1 == "CHO")                                                                                     //CHO Address
+            {
+                childEntry.Properties["streetAddress"].Value = "2 Miles SO of FM2917 on FM2004";                                       
+                childEntry.Properties["l"].Value = "Alvin";                                                                            
+                childEntry.Properties["st"].Value = "Texas";                                                                           
+                childEntry.Properties["postalCode"].Value = "77511";                                                                   
+                childEntry.Properties["c"].Value = "US";                                                                               
+                childEntry.Properties["co"].Value = "United States";                                                                   
+            }
+            else if (extensionAttribute1 == "LAR")                                                                                     //LAR Address
+            {
+                childEntry.Properties["streetAddress"].Value = "2384 East 223rd St";
+                childEntry.Properties["l"].Value = "Carson";
+                childEntry.Properties["st"].Value = "CA";
+                childEntry.Properties["postalCode"].Value = "90745";
+                childEntry.Properties["c"].Value = "US";
+                childEntry.Properties["co"].Value = "United States";
+            }
+            else if (extensionAttribute1 == "HDC")                                                                                     //HDC Address
+            {
+                childEntry.Properties["st"].Value = "Texas";
+                childEntry.Properties["c"].Value = "US";
+                childEntry.Properties["co"].Value = "United States";
+            }
             //Account                                                                                                               
             childEntry.Properties["userPrincipalName"].Value = email;                                                                  //User logon name
             childEntry.Properties["samAccountName"].Value = ntid;                                                                      //User logon name (pre-Windows 2000):
@@ -207,7 +263,10 @@ namespace desktopDashboard___Y_Lee.Forms
             childEntry.Properties["homeDirectory"].Value = "\\\\in1\\opu\\users\\" + ntid;                                             //Home folder
             childEntry.Properties["homeDrive"].Value = "H:";                                                                           //Connect
             //Organization                                                                                                             
+            childEntry.Properties["title"].Value = jobTitle;                                                                           //Job title
+            childEntry.Properties["department"].Value = department;                                                                    //Department
             childEntry.Properties["company"].Value = "INEOS O&P USA";                                                                  //Company
+            //childEntry.Properties["manager"].Value = "INEOS O&P USA";                                                                //manager
             //Attributes
             childEntry.Properties["extensionAttribute1"].Value = extensionAttribute1;
             childEntry.Properties["extensionAttribute2"].Value = extensionAttribute2;
