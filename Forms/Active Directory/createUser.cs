@@ -301,8 +301,14 @@ namespace desktopDashboard___Y_Lee.Forms
             //childEntry.Invoke("SetPassword", new object[] { "Ineos2023" });
             //childEntry.CommitChanges();
             var (adminMemberships, adminMembershipsCount) = Functions.copyMembership(disposeMembershipsGroup, disposeMembershipsCount, txtCreateUserCopyMembership.Text, txtCreateUserNewUserAccount.Text);
-            MessageBox.Show("Membership Copy Fail "
-                                                             + "\n" + adminMemberships[0],
+            StringBuilder messages = new StringBuilder();
+            for (int i = 0; i < adminMembershipsCount; i++)
+            {
+                messages.Append(adminMemberships[i]);
+                messages.Append(Environment.NewLine);
+            }
+            MessageBox.Show("Membership Copy Fail\n"
+                                                             + messages.ToString(),
                                    "Membership Copy Fail", MessageBoxButtons.OK, MessageBoxIcon.Warning).ToString();
         }
         string disposeMembership { get; set; }
@@ -314,6 +320,9 @@ namespace desktopDashboard___Y_Lee.Forms
         {
             string ntid = txtCreateUserCopyMembership.Text;//"yxl13153";
             (copyMemberships, copyMembershipsCount) = Functions.displayMembership(ntid);
+
+            rtxtCreateUserMemberships.Clear();
+            rtxtCreateUserMemberships.Focus();
 
             rtxtCreateUserMemberships.AppendText("Current Memberships");
             for (int i = 0; i < copyMembershipsCount; i++)
@@ -333,19 +342,6 @@ namespace desktopDashboard___Y_Lee.Forms
             rtxtCreateUserMemberships.Clear();
             rtxtCreateUserMemberships.Focus();
 
-            rtxtCreateUserMemberships.SelectionColor = Color.FromArgb(255, 255, 128);
-            rtxtCreateUserMemberships.AppendText("Removed Memberships");
-            for (int i = 0; i < disposeMembershipsCount; i++)
-            {
-                if (i >= 9)
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + disposeMembershipsGroup[i]);
-                else
-                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + disposeMembershipsGroup[i]);
-            }
-
-            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
-            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
-
             rtxtCreateUserMemberships.AppendText("Copied Memberships");
             for (int i = 0; i < copyMembershipsCount; i++)
             {
@@ -355,6 +351,18 @@ namespace desktopDashboard___Y_Lee.Forms
                     rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + copyMemberships[i]);
             }
 
+            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
+            rtxtCreateUserMemberships.AppendText(Environment.NewLine);
+
+            rtxtCreateUserMemberships.SelectionColor = Color.FromArgb(255, 255, 128);
+            rtxtCreateUserMemberships.AppendText("Removed Memberships");
+            for (int i = 0; i < disposeMembershipsCount; i++)
+            {
+                if (i >= 9)
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + (i + 1) + ". " + disposeMembershipsGroup[i]);
+                else
+                    rtxtCreateUserMemberships.AppendText(Environment.NewLine + "0" + (i + 1) + ". " + disposeMembershipsGroup[i]);
+            }
         }
         public void rtxtCreateUserMemberships_MouseDown(object sender, MouseEventArgs e)
         {

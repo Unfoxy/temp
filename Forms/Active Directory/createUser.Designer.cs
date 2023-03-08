@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.pnCreateUserMain = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.pnCreateUserInputPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbCreateUserSupervisorName = new System.Windows.Forms.Label();
@@ -67,14 +61,6 @@
             this.lbCreateUserPhone = new System.Windows.Forms.Label();
             this.txtCreatUserMiddleInitial = new System.Windows.Forms.TextBox();
             this.txtCreateUserPhone = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnCreateUserMembershipsRemove = new System.Windows.Forms.Button();
             this.btnCreateUserMembershipsDisplay = new System.Windows.Forms.Button();
             this.rtxtCreateUserMemberships = new System.Windows.Forms.RichTextBox();
@@ -95,21 +81,7 @@
             // pnCreateUserMain
             // 
             this.pnCreateUserMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.pnCreateUserMain.Controls.Add(this.label16);
-            this.pnCreateUserMain.Controls.Add(this.label15);
-            this.pnCreateUserMain.Controls.Add(this.label14);
-            this.pnCreateUserMain.Controls.Add(this.label13);
-            this.pnCreateUserMain.Controls.Add(this.label12);
-            this.pnCreateUserMain.Controls.Add(this.label11);
             this.pnCreateUserMain.Controls.Add(this.pnCreateUserInputPanel);
-            this.pnCreateUserMain.Controls.Add(this.label9);
-            this.pnCreateUserMain.Controls.Add(this.label8);
-            this.pnCreateUserMain.Controls.Add(this.label7);
-            this.pnCreateUserMain.Controls.Add(this.label6);
-            this.pnCreateUserMain.Controls.Add(this.label5);
-            this.pnCreateUserMain.Controls.Add(this.label4);
-            this.pnCreateUserMain.Controls.Add(this.label3);
-            this.pnCreateUserMain.Controls.Add(this.label2);
             this.pnCreateUserMain.Controls.Add(this.btnCreateUserMembershipsRemove);
             this.pnCreateUserMain.Controls.Add(this.btnCreateUserMembershipsDisplay);
             this.pnCreateUserMain.Controls.Add(this.rtxtCreateUserMemberships);
@@ -127,78 +99,6 @@
             this.pnCreateUserMain.Name = "pnCreateUserMain";
             this.pnCreateUserMain.Size = new System.Drawing.Size(901, 680);
             this.pnCreateUserMain.TabIndex = 4;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label16.Location = new System.Drawing.Point(469, 441);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(399, 18);
-            this.label16.TabIndex = 70;
-            this.label16.Text = "Phone Number, Contractor Email or it does in the beginning";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label15.Location = new System.Drawing.Point(469, 423);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(99, 18);
-            this.label15.TabIndex = 69;
-            this.label15.Text = "Don\'t Capture";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label14.Location = new System.Drawing.Point(469, 356);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 18);
-            this.label14.TabIndex = 68;
-            this.label14.Text = "Capture";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label13.Location = new System.Drawing.Point(469, 393);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(301, 18);
-            this.label13.TabIndex = 67;
-            this.label13.Text = "Contractor Company, Contractor Supervisor";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label12.Location = new System.Drawing.Point(469, 375);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(409, 18);
-            this.label12.TabIndex = 66;
-            this.label12.Text = "LName, FName, Middle, Dept, Position, Supervisor, Location";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label11.Location = new System.Drawing.Point(469, 336);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(136, 18);
-            this.label11.TabIndex = 65;
-            this.label11.Text = "New Account Form";
             // 
             // pnCreateUserInputPanel
             // 
@@ -284,7 +184,7 @@
             this.txtlbCreateUserPosition.Margin = new System.Windows.Forms.Padding(2);
             this.txtlbCreateUserPosition.Name = "txtlbCreateUserPosition";
             this.txtlbCreateUserPosition.Size = new System.Drawing.Size(116, 26);
-            this.txtlbCreateUserPosition.TabIndex = 53;
+            this.txtlbCreateUserPosition.TabIndex = 12;
             // 
             // txtCreateUserSupervisor
             // 
@@ -295,7 +195,7 @@
             this.txtCreateUserSupervisor.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserSupervisor.Name = "txtCreateUserSupervisor";
             this.txtCreateUserSupervisor.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserSupervisor.TabIndex = 65;
+            this.txtCreateUserSupervisor.TabIndex = 9;
             // 
             // lbCreateUserDepartment
             // 
@@ -331,7 +231,7 @@
             this.txtCreateUserContractorEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserContractorEmail.Name = "txtCreateUserContractorEmail";
             this.txtCreateUserContractorEmail.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserContractorEmail.TabIndex = 63;
+            this.txtCreateUserContractorEmail.TabIndex = 15;
             // 
             // comboBoxCreateUserUserType
             // 
@@ -350,7 +250,7 @@
             this.comboBoxCreateUserUserType.Location = new System.Drawing.Point(89, 52);
             this.comboBoxCreateUserUserType.Name = "comboBoxCreateUserUserType";
             this.comboBoxCreateUserUserType.Size = new System.Drawing.Size(87, 24);
-            this.comboBoxCreateUserUserType.TabIndex = 49;
+            this.comboBoxCreateUserUserType.TabIndex = 4;
             this.comboBoxCreateUserUserType.SelectedIndexChanged += new System.EventHandler(this.comboBoxCreateUserUserType_SelectedIndexChanged);
             // 
             // txtCreateUserDepartment
@@ -362,7 +262,7 @@
             this.txtCreateUserDepartment.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserDepartment.Name = "txtCreateUserDepartment";
             this.txtCreateUserDepartment.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserDepartment.TabIndex = 51;
+            this.txtCreateUserDepartment.TabIndex = 10;
             // 
             // txtCreateUserFirstname
             // 
@@ -373,7 +273,7 @@
             this.txtCreateUserFirstname.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserFirstname.Name = "txtCreateUserFirstname";
             this.txtCreateUserFirstname.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserFirstname.TabIndex = 4;
+            this.txtCreateUserFirstname.TabIndex = 1;
             // 
             // lbCreateUserUserType
             // 
@@ -453,10 +353,10 @@
             this.checkBoxCreateUserEnableOkta.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxCreateUserEnableOkta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCreateUserEnableOkta.ForeColor = System.Drawing.SystemColors.Window;
-            this.checkBoxCreateUserEnableOkta.Location = new System.Drawing.Point(186, 79);
+            this.checkBoxCreateUserEnableOkta.Location = new System.Drawing.Point(185, 79);
             this.checkBoxCreateUserEnableOkta.Name = "checkBoxCreateUserEnableOkta";
             this.checkBoxCreateUserEnableOkta.Size = new System.Drawing.Size(120, 24);
-            this.checkBoxCreateUserEnableOkta.TabIndex = 54;
+            this.checkBoxCreateUserEnableOkta.TabIndex = 7;
             this.checkBoxCreateUserEnableOkta.Text = "Enable Okta:";
             this.checkBoxCreateUserEnableOkta.UseVisualStyleBackColor = true;
             // 
@@ -481,7 +381,7 @@
             this.comboBoxCreateUserSiteCode.Location = new System.Drawing.Point(269, 52);
             this.comboBoxCreateUserSiteCode.Name = "comboBoxCreateUserSiteCode";
             this.comboBoxCreateUserSiteCode.Size = new System.Drawing.Size(87, 24);
-            this.comboBoxCreateUserSiteCode.TabIndex = 15;
+            this.comboBoxCreateUserSiteCode.TabIndex = 5;
             // 
             // txtCreateUserContractorCompany
             // 
@@ -493,7 +393,7 @@
             this.txtCreateUserContractorCompany.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserContractorCompany.Name = "txtCreateUserContractorCompany";
             this.txtCreateUserContractorCompany.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserContractorCompany.TabIndex = 61;
+            this.txtCreateUserContractorCompany.TabIndex = 14;
             // 
             // lbCreateUserOffice
             // 
@@ -516,7 +416,7 @@
             this.txtCreateUserLastname.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserLastname.Name = "txtCreateUserLastname";
             this.txtCreateUserLastname.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserLastname.TabIndex = 7;
+            this.txtCreateUserLastname.TabIndex = 2;
             // 
             // comboBoxCreateUserO365License
             // 
@@ -530,7 +430,7 @@
             this.comboBoxCreateUserO365License.Location = new System.Drawing.Point(116, 102);
             this.comboBoxCreateUserO365License.Name = "comboBoxCreateUserO365License";
             this.comboBoxCreateUserO365License.Size = new System.Drawing.Size(87, 24);
-            this.comboBoxCreateUserO365License.TabIndex = 13;
+            this.comboBoxCreateUserO365License.TabIndex = 8;
             // 
             // lbCreateUserContractorCompany
             // 
@@ -553,7 +453,7 @@
             this.checkBoxCreateUserO365MailEnabled.Location = new System.Drawing.Point(5, 79);
             this.checkBoxCreateUserO365MailEnabled.Name = "checkBoxCreateUserO365MailEnabled";
             this.checkBoxCreateUserO365MailEnabled.Size = new System.Drawing.Size(115, 24);
-            this.checkBoxCreateUserO365MailEnabled.TabIndex = 12;
+            this.checkBoxCreateUserO365MailEnabled.TabIndex = 6;
             this.checkBoxCreateUserO365MailEnabled.Text = "Ineos Email:";
             this.checkBoxCreateUserO365MailEnabled.UseVisualStyleBackColor = true;
             this.checkBoxCreateUserO365MailEnabled.CheckedChanged += new System.EventHandler(this.checkBoxO365MailEnabled_CheckedChanged);
@@ -567,7 +467,7 @@
             this.txtCreateUserOffice.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserOffice.Name = "txtCreateUserOffice";
             this.txtCreateUserOffice.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserOffice.TabIndex = 56;
+            this.txtCreateUserOffice.TabIndex = 13;
             // 
             // lbCreateUserMiddleInitial
             // 
@@ -614,7 +514,7 @@
             this.txtCreatUserMiddleInitial.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreatUserMiddleInitial.Name = "txtCreatUserMiddleInitial";
             this.txtCreatUserMiddleInitial.Size = new System.Drawing.Size(27, 26);
-            this.txtCreatUserMiddleInitial.TabIndex = 9;
+            this.txtCreatUserMiddleInitial.TabIndex = 3;
             // 
             // txtCreateUserPhone
             // 
@@ -625,103 +525,7 @@
             this.txtCreateUserPhone.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserPhone.Name = "txtCreateUserPhone";
             this.txtCreateUserPhone.Size = new System.Drawing.Size(116, 26);
-            this.txtCreateUserPhone.TabIndex = 59;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label9.Location = new System.Drawing.Point(472, 204);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(213, 18);
-            this.label9.TabIndex = 47;
-            this.label9.Text = "EA 11 Hardcode - GMAIL_SUB";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label8.Location = new System.Drawing.Point(471, 87);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(197, 18);
-            this.label8.TabIndex = 46;
-            this.label8.Text = "EA 1 - 2 - 9 - 10 - 11 - 12 - 13";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label7.Location = new System.Drawing.Point(472, 222);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(225, 18);
-            this.label7.TabIndex = 45;
-            this.label7.Text = "EA 12 Hardcode - OPUSA_O365";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label6.Location = new System.Drawing.Point(471, 186);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(177, 18);
-            this.label6.TabIndex = 44;
-            this.label6.Text = "EA 2 Hardcode - OP USA";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label5.Location = new System.Drawing.Point(471, 258);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(400, 18);
-            this.label5.TabIndex = 43;
-            this.label5.Text = "EA13 Checkbox - Ineos Email = o365 / Enable Okta = ;Okta";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label4.Location = new System.Drawing.Point(471, 137);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(216, 18);
-            this.label4.TabIndex = 42;
-            this.label4.Text = "EA 9 Dropdown - O365 License";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label3.Location = new System.Drawing.Point(471, 119);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(190, 18);
-            this.label3.TabIndex = 41;
-            this.label3.Text = "EA 1 Dropdown - Site Code";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label2.Location = new System.Drawing.Point(471, 155);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(197, 18);
-            this.label2.TabIndex = 40;
-            this.label2.Text = "EA10 Dropdown - User Type";
+            this.txtCreateUserPhone.TabIndex = 11;
             // 
             // btnCreateUserMembershipsRemove
             // 
@@ -744,7 +548,7 @@
             this.btnCreateUserMembershipsDisplay.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateUserMembershipsDisplay.Name = "btnCreateUserMembershipsDisplay";
             this.btnCreateUserMembershipsDisplay.Size = new System.Drawing.Size(174, 28);
-            this.btnCreateUserMembershipsDisplay.TabIndex = 34;
+            this.btnCreateUserMembershipsDisplay.TabIndex = 18;
             this.btnCreateUserMembershipsDisplay.Text = "Display Memberships";
             this.btnCreateUserMembershipsDisplay.UseVisualStyleBackColor = true;
             this.btnCreateUserMembershipsDisplay.Click += new System.EventHandler(this.btnCreateUserMembershipsDisplay_Click);
@@ -796,7 +600,7 @@
             this.txtCreateUserCopyMembership.Margin = new System.Windows.Forms.Padding(2);
             this.txtCreateUserCopyMembership.Name = "txtCreateUserCopyMembership";
             this.txtCreateUserCopyMembership.Size = new System.Drawing.Size(174, 26);
-            this.txtCreateUserCopyMembership.TabIndex = 26;
+            this.txtCreateUserCopyMembership.TabIndex = 17;
             // 
             // lbCreateUserCopyMembership
             // 
@@ -842,7 +646,7 @@
             this.btnCreateUserGenerateNTID.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateUserGenerateNTID.Name = "btnCreateUserGenerateNTID";
             this.btnCreateUserGenerateNTID.Size = new System.Drawing.Size(145, 28);
-            this.btnCreateUserGenerateNTID.TabIndex = 19;
+            this.btnCreateUserGenerateNTID.TabIndex = 16;
             this.btnCreateUserGenerateNTID.Text = "Generate NTID";
             this.btnCreateUserGenerateNTID.UseVisualStyleBackColor = true;
             this.btnCreateUserGenerateNTID.Click += new System.EventHandler(this.btnCreateUserGenerateNTID_Click);
@@ -917,14 +721,6 @@
         private System.Windows.Forms.RichTextBox rtxtCreateUserMemberships;
         private System.Windows.Forms.Label lbCreateUserMiddleInitialComment;
         private System.Windows.Forms.Label lbCreateUserUserType;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBoxCreateUserUserType;
         private System.Windows.Forms.TextBox txtCreateUserOffice;
         private System.Windows.Forms.Label lbCreateUserOffice;
@@ -940,12 +736,6 @@
         private System.Windows.Forms.TextBox txtCreateUserPhone;
         private System.Windows.Forms.Label lbCreateUserPhone;
         private System.Windows.Forms.Panel pnCreateUserInputPanel;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lbCreateUserSupervisorName;
         private System.Windows.Forms.TextBox txtCreateUserSupervisor;
         private System.Windows.Forms.Label lbCreateUserSupervisor;

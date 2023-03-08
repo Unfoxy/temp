@@ -182,7 +182,7 @@
             this.btnTroubleshootingtools.Margin = new System.Windows.Forms.Padding(0);
             this.btnTroubleshootingtools.Name = "btnTroubleshootingtools";
             this.btnTroubleshootingtools.Size = new System.Drawing.Size(279, 50);
-            this.btnTroubleshootingtools.TabIndex = 5;
+            this.btnTroubleshootingtools.TabIndex = 4;
             this.btnTroubleshootingtools.Text = "Troubleshooting Tools";
             this.btnTroubleshootingtools.UseVisualStyleBackColor = false;
             this.btnTroubleshootingtools.Click += new System.EventHandler(this.btnTroubleshootingtools_Click);
@@ -269,7 +269,7 @@
             this.btnActivedirectory.Margin = new System.Windows.Forms.Padding(0);
             this.btnActivedirectory.Name = "btnActivedirectory";
             this.btnActivedirectory.Size = new System.Drawing.Size(279, 50);
-            this.btnActivedirectory.TabIndex = 19;
+            this.btnActivedirectory.TabIndex = 3;
             this.btnActivedirectory.Text = "Active Directory";
             this.btnActivedirectory.UseVisualStyleBackColor = false;
             this.btnActivedirectory.Click += new System.EventHandler(this.btnActivedirectory_Click);
@@ -356,7 +356,7 @@
             this.btnUtilitytools.Margin = new System.Windows.Forms.Padding(0);
             this.btnUtilitytools.Name = "btnUtilitytools";
             this.btnUtilitytools.Size = new System.Drawing.Size(279, 50);
-            this.btnUtilitytools.TabIndex = 15;
+            this.btnUtilitytools.TabIndex = 2;
             this.btnUtilitytools.Text = "Utility Tools";
             this.btnUtilitytools.UseVisualStyleBackColor = false;
             this.btnUtilitytools.Click += new System.EventHandler(this.btnUtilitytools_Click);
@@ -510,7 +510,7 @@
             this.btnAccountExpiredUser.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccountExpiredUser.Name = "btnAccountExpiredUser";
             this.btnAccountExpiredUser.Size = new System.Drawing.Size(56, 21);
-            this.btnAccountExpiredUser.TabIndex = 14;
+            this.btnAccountExpiredUser.TabIndex = 7;
             this.btnAccountExpiredUser.Text = "View";
             this.btnAccountExpiredUser.UseVisualStyleBackColor = true;
             this.btnAccountExpiredUser.Click += new System.EventHandler(this.btnAccountExpiredUser_Click);
@@ -721,7 +721,7 @@
             this.btnAccountLocked.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccountLocked.Name = "btnAccountLocked";
             this.btnAccountLocked.Size = new System.Drawing.Size(56, 21);
-            this.btnAccountLocked.TabIndex = 14;
+            this.btnAccountLocked.TabIndex = 6;
             this.btnAccountLocked.Text = "View";
             this.btnAccountLocked.UseVisualStyleBackColor = true;
             this.btnAccountLocked.Click += new System.EventHandler(this.btnAccountLocked_Click);
@@ -896,7 +896,7 @@
             this.btnPasswordExpiredUser.Margin = new System.Windows.Forms.Padding(2);
             this.btnPasswordExpiredUser.Name = "btnPasswordExpiredUser";
             this.btnPasswordExpiredUser.Size = new System.Drawing.Size(56, 21);
-            this.btnPasswordExpiredUser.TabIndex = 14;
+            this.btnPasswordExpiredUser.TabIndex = 5;
             this.btnPasswordExpiredUser.Text = "View";
             this.btnPasswordExpiredUser.UseVisualStyleBackColor = true;
             this.btnPasswordExpiredUser.Click += new System.EventHandler(this.btnPasswordExpiredUser_Click);
@@ -1023,7 +1023,7 @@
             this.btnDeactivatedUser.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeactivatedUser.Name = "btnDeactivatedUser";
             this.btnDeactivatedUser.Size = new System.Drawing.Size(56, 21);
-            this.btnDeactivatedUser.TabIndex = 14;
+            this.btnDeactivatedUser.TabIndex = 8;
             this.btnDeactivatedUser.Text = "View";
             this.btnDeactivatedUser.UseVisualStyleBackColor = true;
             this.btnDeactivatedUser.Click += new System.EventHandler(this.btnDeactivatedUser_Click);

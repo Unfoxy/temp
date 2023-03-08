@@ -33,21 +33,43 @@ namespace desktopDashboard___Y_Lee
                     {
                         GroupPrincipal destinationGroup = sourceGroup as GroupPrincipal;
                         destinationGroup.Members.Add(destinationUser);
-                        for (int i = 0; i < disposeMembershipsCount; i++)                                       //Filter disposed Membership
+                        for (int i = 0; i < disposeMembershipsCount; i++)                                   //Filter disposed Membership
                         {
                             if (destinationGroup.Name == disposeMemberships[i])
                                 destinationGroup.Members.Remove(destinationUser);
                         }
 
-                        if (destinationGroup.DistinguishedName == "CN=" + destinationGroup.Name + ","       //Filter Admin Memberships
-                            + "OU=RG,OU=rAM,OU=Admin,DC=in1,DC=ad,DC=innovene,DC=com")
+                        if (!(sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Users,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=RoleGroups,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Resources,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=DataGroups,OU=MVW,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Users,OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=RoleGroups,OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Resources,OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=DataGroups,OU=BMC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Users,OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=RoleGroups,OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Resources,OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=DataGroups,OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=NonStandard,OU=CHO,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Users,OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=RoleGroups,OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Resources,OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=DataGroups,OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=NonStandard,OU=LAR,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Users,OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=RoleGroups,OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=Resources,OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com" ||
+                              sourceGroup.DistinguishedName == "CN=" + sourceGroup.Name + "," + "OU=DataGroups,OU=HDC,OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com"))
                         {
-                            adminMemberships[adminMembershipsCount] = destinationGroup.Name;
-                            adminMembershipsCount++;
-                            destinationGroup.Members.Remove(destinationUser);
+                            {
+                                adminMemberships[adminMembershipsCount] = destinationGroup.Name;
+                                adminMembershipsCount++;
+                                destinationGroup.Members.Remove(destinationUser);
+                            }
                         }
-                        else
-                            destinationGroup.Save();
+                        
+                        destinationGroup.Save();
                     }
                 }
             }
