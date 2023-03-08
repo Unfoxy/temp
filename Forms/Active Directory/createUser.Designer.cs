@@ -453,7 +453,7 @@
             this.checkBoxCreateUserEnableOkta.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxCreateUserEnableOkta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCreateUserEnableOkta.ForeColor = System.Drawing.SystemColors.Window;
-            this.checkBoxCreateUserEnableOkta.Location = new System.Drawing.Point(125, 79);
+            this.checkBoxCreateUserEnableOkta.Location = new System.Drawing.Point(186, 79);
             this.checkBoxCreateUserEnableOkta.Name = "checkBoxCreateUserEnableOkta";
             this.checkBoxCreateUserEnableOkta.Size = new System.Drawing.Size(120, 24);
             this.checkBoxCreateUserEnableOkta.TabIndex = 54;

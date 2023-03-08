@@ -109,11 +109,14 @@ namespace desktopDashboard___Y_Lee.Forms
             lastname = char.ToUpper(lastname[0]) + lastname.Substring(1);       //Make first letter uppercase
             lastInitial = lastname.Substring(0, 1);
             //Middle Initial
-            middleName = txtCreatUserMiddleInitial.Text;
-            if (middleName == null)
-                middleName = "X";
-            middleName = middleName.ToUpper();
-            middleInitial = middleName.Substring(0, 1);
+            if (txtCreatUserMiddleInitial.Text == "")
+                middleInitial = "X";
+            else
+            {
+                middleName = txtCreatUserMiddleInitial.Text;
+                middleName = middleName.ToUpper();
+                middleInitial = middleName.Substring(0, 1);
+            }
             //NTID
             Random rnd = new Random();
             int num = rnd.Next(100000);
@@ -193,13 +196,23 @@ namespace desktopDashboard___Y_Lee.Forms
 
             //Creation Start
             DirectoryEntry childEntry = ldapConnection.Children.Add("CN=" + lastname + "\\" + ", " + firstname + " " + middleInitial, "user");
+            if (extensionAttribute10 == "Employee")                                                                                    //Display name
+                childEntry.Properties["displayName"].Value = lastname + ", " + firstname + " " + middleInitial;
+            else if (extensionAttribute10 == "External" || extensionAttribute10 == "Contractor")
+                childEntry.Properties["displayName"].Value = lastname + ", " + firstname + " " + middleInitial + " (" + contractorCompanyName + ")";
+            if (middleInitial == "X")                                                                                                  //No Middle Initial
+            {
+                childEntry = ldapConnection.Children.Add("CN=" + lastname + "\\" + ", " + firstname, "user");
+                if (extensionAttribute10 == "Employee")                                                                                
+                    childEntry.Properties["displayName"].Value = lastname + ", " + firstname;
+                else if (extensionAttribute10 == "External" || extensionAttribute10 == "Contractor")
+                    childEntry.Properties["displayName"].Value = lastname + ", " + firstname + " (" + contractorCompanyName + ")";
+            }
             childEntry.Properties["givenName"].Value = firstname;                                                                      //First name
             childEntry.Invoke("Put", new object[] { "Initials", middleInitial });                                                      //Initials
             childEntry.Properties["sn"].Value = lastname;                                                                              //Last name
-            if (extensionAttribute10 == "Employee")                                                                                    //Display name
-                childEntry.Properties["displayName"].Value = lastname + ", " + firstname;
-            else if(extensionAttribute10 == "External" || extensionAttribute10 == "Contractor")
-                childEntry.Properties["displayName"].Value = lastname + ", " + firstname + " (" + contractorCompanyName + ")";
+            
+
             if (extensionAttribute1 == "MVW")                                                                                          //Description
                 childEntry.Invoke("Put", new object[] { "Description", "rAM - " + extensionAttribute1 + " - League City. Texas" });
             else if (extensionAttribute1 == "BMC")
@@ -266,7 +279,13 @@ namespace desktopDashboard___Y_Lee.Forms
             childEntry.Properties["title"].Value = jobTitle;                                                                           //Job title
             childEntry.Properties["department"].Value = department;                                                                    //Department
             childEntry.Properties["company"].Value = "INEOS O&P USA";                                                                  //Company
-            //childEntry.Properties["manager"].Value = "INEOS O&P USA";                                                                //manager
+            if (txtCreateUserSupervisor.Text != "")                                                                                    //Manager
+            {
+                string[] manager = Functions.GetAD(txtCreateUserSupervisor.Text);
+                string displayName = manager[0].Replace(",", "\\,");
+                string site = manager[3];
+                childEntry.Properties["manager"].Value = "CN=" + displayName + ",OU=Users,OU=" + site + ",OU=rAM,OU=Client,DC=in1,DC=ad,DC=innovene,DC=com";
+            }
             //Attributes
             childEntry.Properties["extensionAttribute1"].Value = extensionAttribute1;
             childEntry.Properties["extensionAttribute2"].Value = extensionAttribute2;
